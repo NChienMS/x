@@ -17,7 +17,6 @@ toggle.addEventListener("click", () => {
 
 //coppy nội dung và hiện thông báo
   function myFunction() {
-          alert('Vietcombank | 102 055 3977\n ______\n"Nhấn OK để copy"');
     var copyText = document.getElementById("myInput");
     var input=document.createElement("INPUT");
     document.body.appendChild(input);
@@ -34,7 +33,6 @@ toggle.addEventListener("click", () => {
   }
 
   function myFunction2() {
-          alert('Mb Bank | 041 014 862 8888\n ______\n"Nhấn OK để copy"');
     var copyText = document.getElementById("myInput2");
     var input=document.createElement("INPUT");
     document.body.appendChild(input);
