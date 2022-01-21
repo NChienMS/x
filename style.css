@@ -601,10 +601,7 @@ z-index:0;
 width:180px;/*kích thước câu đối bên phải, bạn có thể tăng hoặc giảm*/
 }
 /* ẩn banner khi kích thước màn hình nhỏ hơn 15 inch để tránh cho mất nội dung*/
-@media(max-width:1524px){
-.luta-tet-left,.luta-tet-right{
-display:none!important
-}
+
 }
 /* Tuy chinh hieu ung roi*/
 /*www.lutaweb.com*/
