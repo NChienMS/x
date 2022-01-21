@@ -595,9 +595,9 @@ width:180px;/*kích thước câu đối bên trái, bạn có thể tăng hoặ
 }
 .luta-tet-right{
 position:fixed;
-top:10px;
-right:0;
-z-index:0;
+bottom: 0;
+right:-5px;
+z-index:100;
 width:180px;/*kích thước câu đối bên phải, bạn có thể tăng hoặc giảm*/
 }
 /* ẩn banner khi kích thước màn hình nhỏ hơn 15 inch để tránh cho mất nội dung*/
