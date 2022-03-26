@@ -3,7 +3,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+
 }
+
+   
+
 html {
     font-size: 62.5%;
     line-height: 1.625rem;
@@ -162,9 +166,12 @@ display:none
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: -5px;
     font-size: 9px;
 }
+
+
+
 
 .card__title--description p {
     position: relative;
@@ -557,7 +564,7 @@ p {
     width: 300px;
     margin: 0 auto;
     box-sizing: border-box;
-    margin-top: 35%;
+    margin-top: 20%;
     box-shadow: 0px 2px 6px rgba(0,0,0,1);
     border-radius: 10px;
     background: #fff;
@@ -586,13 +593,7 @@ p {
     width:90%;
     }	
 }
-.luta-tet-left{
-position:fixed ;
-top:10px;
-left:0;
-z-index:0;
-width:180px;/*kích thước câu đối bên trái, bạn có thể tăng hoặc giảm*/
-}
+
 .luta-tet-right{
 position:fixed;
 bottom: 0;
@@ -675,4 +676,17 @@ left:25%;-webkit-animation-delay:2s,0s;animation-delay:2s,0s
 }
 .flower:nth-of-type(11){
 left:65%;-webkit-animation-delay:4s,2.5s;animation-delay:4s,2.5s
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,500&display=swap');
+
+span {
+    font-size:20px;
+    margin-right: 0px;
+   
+    transition:color 0.2s;
+}
+
+.change-properties{
+    color:#fff;
+    text-shadow:0px 0px 10px white,0px 0px 15px red,0px 0px 20px red;
 }
