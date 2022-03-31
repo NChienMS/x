@@ -607,7 +607,6 @@ p {
     padding-bottom: 5px;
 }
 .popup-content2 {
-    background-image: url(hello2.png);
     border-radius: 50px;
     width: 380px;
     height: 250px;
@@ -619,6 +618,7 @@ p {
     background: #fff;
     position: relative;
     padding-bottom: 5px;
+    background-image: url(hello2.png);
 }
 /* Button đóng popup */
 .close-button {
