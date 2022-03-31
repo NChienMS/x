@@ -1,3 +1,4 @@
+
 const toggle = document.querySelector(".toggle__theme");
 const card = document.querySelector(".app");
 toggle.addEventListener("click", () => {
@@ -14,7 +15,10 @@ toggle.addEventListener("click", () => {
 
     }
 })
-
+var YWPParams =
+{
+autoplay: true
+}
 //coppy nội dung và hiện thông báo
   function myFunction() {
     var copyText = document.getElementById("myInput");
@@ -149,3 +153,14 @@ setInterval((e) => {
     index = 0
   }
 }, 200)
+
+
+
+
+
+document.addEventListener('click', musicPlay);
+function musicPlay() {
+    document.getElementById('hihi').play();
+    document.removeEventListener('click', musicPlay);
+}
+
