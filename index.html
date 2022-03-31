@@ -15,20 +15,21 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png"> -->
         <link rel="manifest" href="/site.webmanifest">
         <title>N. Chiến </title>
-    </head>
 
-    <body>
+    </head>
+    <body onload="thongbaopopup()">
+
        
-        <a class="luta-tet-right" ><img src="https://aries908218.files.wordpress.com/2022/01/hoadao.png" width="90%" /></a>
+        <a class="luta-tet-right" ><img  src="https://aries908218.files.wordpress.com/2022/01/hoadao.png" width="90%"  /></a>
  
 </div>
       
     
 
      
-
- 
         <div class="app">
+
+             
 
             <div class="card mg-10">
                 <div class="card__title">
@@ -235,6 +236,30 @@
                 </div>
 
 
+                <div class="popup2" popup-name="popup-3">
+                    <div class="popup-content2">
+                        <div class="tieude">Lời ngỏ
+                                
+                        </div>
+                        <div class="hello_text">Cảm ơn bạn đã ghé thăm <br>
+                            Chúc bạn một ngày vui vẻ và tràn đầy hạnh phúc
+                                
+                        </div>
+                        <img class="hello_img" src="hello.png" width="70%" style="padding-bottom: -100px;margin-top: 10px; border-bottom-left-radius:10px 10px;">
+                        <a class="close-button2" popup-close="popup-3" href="javascript:void(0)">
+                                    
+                                    <div  class="card__link">
+                                        <div  target="_blank">
+                                <div class="button button__subscribe " style="height: 10px; margin: 220px -220px; position:fixed; background-color:     #8DEEEE">
+                                    <span style="font-size: 14px; color: red;"> <b>ÉT Ô ÉT</b> </span>
+                                </div>
+                            </div>
+                                    </div>
+                                    
+                                </a>
+                    <a class="close-button" popup-close="popup-3" href="javascript:void(0)">x</a>
+                    </div>
+                </div>
 
 
 
@@ -287,24 +312,35 @@ $(function() {
 
 
 
-                <div class="button__list mt-10">
+                <div class="button__list mt-10" >
                     <div class="row">
                         <div class="col col-lg-6 mt-10">
                             <a href="https://onedrive.live.com/download?cid=BAEE65BB54DC7488&amp;resid=BAEE65BB54DC7488%21111&amp;authkey=AI_4wklRaOVcKc8" target="_blank">
-                                <div class="button button__message ">
+                                <div class="button button__message " style="height: 10px;">
                                     <span style="font-size: 14px"> ✚ Danh bạ </span>
                                 </div>
                             </a>
                         </div>
                         <div class="col col-lg-6 mt-10">
                             <a href="#" target="_blank">
-                                <div class="button button__subscribe ">
+                                <div class="button button__subscribe " style="height: 10px;">
                                     <span style="font-size: 14px"> Theo Dõi </span>
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
+
+
+
+    
+                <audio autoplay loop  id="hihi">
+                     <source id= "hi"src="a.mp3">
+                </audio>
+
+
+
+
                 <div class="card__footer mt-10">
                     <div class="footer__item">
                         <span>
@@ -317,6 +353,13 @@ $(function() {
                 </div>
             </div>
         </div>
+      
+<!-- ==================== popup ====================-->
         <script src="./script.js"></script>
+        
+
+       
+
     </body>
+
 </html>
