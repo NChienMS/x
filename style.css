@@ -607,6 +607,7 @@ p {
     padding-bottom: 5px;
 }
 .popup-content2 {
+    background-image: url(hello2.png);
     border-radius: 50px;
     width: 380px;
     height: 250px;
