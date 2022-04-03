@@ -402,6 +402,7 @@ display:none
     flex-wrap: wrap;
 }
 .button {
+    width: 150px;
     position: relative;
     display: flex;
     align-items: center;
