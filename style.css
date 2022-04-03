@@ -641,8 +641,8 @@ p {
     border-radius: 5px;
 
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: -25px;
+    right: -50px;
     border-radius: 20px;
     font-size: 20px;
     text-align: center;
