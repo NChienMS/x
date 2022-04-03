@@ -609,7 +609,7 @@ p {
 }
 .popup-content2 {
     border-radius: 50px;
-    width: 380px;
+    width: 330px;
     height: 250px;
     margin: 0 auto;
     box-sizing: border-box;
@@ -619,7 +619,6 @@ p {
     background: #fff;
     position: relative;
     padding-bottom: 5px;
-    background-image: url(hello2.png);
     background-size: contain;
 }
 /* Button đóng popup */
