@@ -8,7 +8,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
             rel="stylesheet">
         <link rel="stylesheet" href="./style.css">
-        <link rel="shortcut icon" href="./icon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="img/icon.png" type="image/x-icon">
         <link rel='stylesheet' href='css/style.css' type='text/css' media='all' />
         <!-- <link rel="android-chrome" sizes="192x192" href="img/android-chrome-192x192.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
@@ -20,7 +20,7 @@
     <body onload="thongbaopopup()">
 
        
-        <a class="luta-tet-right" ><img  src="https://aries908218.files.wordpress.com/2022/01/hoadao.png" width="90%"  /></a>
+        <a class="luta-tet-right" ><img  src="img/hoadao.png" width="90%"  /></a>
  
 </div>
       
@@ -34,7 +34,7 @@
             <div class="card mg-10">
                 <div class="card__title">
                     <div class="card__title--img">
-                        <img src="./avatar.png" alt="" srcset="">
+                        <img src="./img/avatar.png" alt="" srcset="">
                     </div>
                     <div class="card__title--name">
                        
@@ -239,22 +239,28 @@
                 <div class="popup2" popup-name="popup-3">
                     <div class="popup-content2">
                         <div class="tieude">Xin chào ^^</div>
-                        <div class="hello_text">Tôi định viết gì đó vui vui<br>
-                            Nhưng tôi chưa có ý tưởng gì cả...<br>
-                            <div>Chúc bạn một ngày tràn đầy hạnh phúc</div>        
+                        <div class="hello_text">Ngày hôm nay của bạn thế nào rồi?<br>
+                            Bạn có muốn nghe một bản nhạc cùng tôi<br>
+                                    
                         </div>
                        
-                        <div style="text-align: center; margin-top:10px; float: left;">
-                        <img src="hello3.png" width="100px" >
+                       
+                        <div style="text-align: center; margin-top:10px; ">
+                        <img src="./img/hello3.png" width="100px" >
                         </div>
                         
                         <a class="close-button2" popup-close="popup-3" href="javascript:void(0)">
                                     
                                     <div  class="card__link">
                                         <div  target="_blank">
-                                <div class="button button__subscribe " style="height: 10px; margin: 220px -220px; position:fixed; background-color:     #8DEEEE">
-                                    <span style="font-size: 14px; color: red;font-weight: bold;"> Thank You </span>
-                                </div>
+                        <div  style="height: 10px; margin-left: 33px;" >
+                            <div class="button button__subscribe " style="height: 10px; width: 130px ;float: left; margin-right: 5px;  background-color: #FFF0F5; ">
+                                    <span style="font-size: 14px; color: red;font-weight: bold;"> Kó </span>
+                                    
+                            </div>
+                            <span id="play" class="button button__subscribe" style="width: 130px ;height: 10px;background-color: #FFF0F5; font-size: 14px; color: red;font-weight: bold;"> Có
+                            </span>
+                        </div>    
                             </div>
                                     </div>
                                     
@@ -337,7 +343,7 @@ $(function() {
 
     
                 <audio autoplay loop  id="hihi">
-                     <source id= "hi"src="Everything_At_Once_Lenka.mp3">
+                     <source id= "hi"src="#">
                 </audio>
 
 
@@ -354,13 +360,78 @@ $(function() {
                    
                 </div>
             </div>
+            <!-- ==================== menu thả nổi nhạc ====================-->
+<div class="menu">
+<ul>
+    <li > <div id="loading">
+        <div class="item1"> <img src="img/music.png" width="100%" style="border-radius: 50%;" ></div>
+    </div>
+    <ul>
+
+       <li class="li_music">  
+        <marquee width="100%"> <div id="status" style="color:white; text-align: center; font-size:16px; width: 280px; height: 20px;">Sẵn sàng phát nhạc</div></marquee>
+            
+
+<!--                
+              code âm nhạc
+-->
+            <div class="player">
+                <audio id="player__source" src="music/Everything_At_Once_Lenka.mp3">
+                   
+                </audio>
+                <div class="player__loading">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+             
+                            
+                </div>
+                <div class="player__control">
+                    <button id="playPause" class="player--play icon-play"></button>
+                    <span id="currentTime" style="font-size:14px;">00:00</span>
+                    <input id="seek" class="player--seek" type="range" min="0" value="0">
+                    <span id="durationTime" style="font-size:14px;">00:00</span>
+                    <button id="muted" class="player--volumn icon-volume-high"></button>
+                </div>
+            </div>
+
+
+
+
+
+
+
+       </li> 
+    </ul>
+   </li>
+</ul>
+</div>
+
         </div>
       
 <!-- ==================== popup ====================-->
         <script src="./script.js"></script>
-        
+<!-- code phát nhạc-->       
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41117458-1']);
+    _gaq.push(['_trackPageview']);
 
-       
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>      
+
+
 
     </body>
 
