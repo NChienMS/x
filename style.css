@@ -731,11 +731,9 @@ span {
 #app-cover
 {
     position: absolute;
-    top: 50%;
     right: 0;
     left: 0;
-    width: 430px;
-    height: 100px;
+   
     margin: -4px auto;
 }
 
