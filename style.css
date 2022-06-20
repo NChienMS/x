@@ -30,7 +30,7 @@ html {
 
 :root {
     --white-color: #fff;
-    --bg-main: #FFF0F5;
+    --bg-main: white;
     --bg-dark: #303234;
     --primary-color: #31344b;
     --text-color: #777777;
