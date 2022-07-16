@@ -28,7 +28,7 @@ autoplay: true
     input.select();
     input.setSelectionRange(0, 99999);
     document.execCommand("copy");
-    alert('Mb Bank | 041 014 862 8888\n ______\n"Copy thành công", Gửi nhiều tiền vào nhé');
+    alert('Mb Bank | 1998 0416 88888\n ______\n"Copy thành công", Gửi nhiều tiền vào nhé');
     document.body.removeChild(input);
     var tooltip = document.getElementById("myTooltip");
     tooltip.style.display='block';
