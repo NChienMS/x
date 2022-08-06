@@ -1,0 +1,82 @@
+@media screen and (max-width:1400px) {
+
+    .list__employee {
+        grid-template-columns: repeat(4,1fr);
+    }
+    
+}
+
+@media screen and (max-width:1280px){
+    
+   .main__sidebar {
+    width:100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+   }
+   .main__sidebar .sidebar__item {
+    justify-content: center;
+   }
+   .main__sidebar .sidebar__item p {
+    display: none;
+   }
+}
+
+@media screen  and (max-width:1090px){
+
+ .list__employee {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+
+@media screen and (max-width:825px) {
+
+   
+    .main__sidebar {
+        width:50px;
+       
+    }
+    .main__sidebar .sidebar__item  ion-icon{
+        margin-right: 0px;
+      
+    }
+    .list__employee  {
+       grid-template-columns: repeat(2,1fr);
+    }
+    .list__employee .item {
+        width: 200px;
+    }
+    .search__form input[type='submit']
+    {
+        margin-left:0;
+        margin-top:20px;
+    }
+    .search__form input[type ='text']
+    {
+        width:100%;
+    }
+    
+}
+
+@media screen and (max-width:567px) {
+
+  
+    .list__employee {
+        /* width:200px; */
+        grid-template-columns: repeat(1,1fr);
+    }
+    .list__employee  .item{
+        width:100%;
+        grid-template-columns: repeat(1,1fr);
+    }
+    header .auth__name {
+        display: none;
+    }
+    header .header__logo a{
+        font-size:20px;
+    
+    }
+}
+
