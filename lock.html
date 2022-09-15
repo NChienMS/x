@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nchiến MS Lock</title>
+    <link rel="shortcut icon" href="https://posapp.vn/wp-content/themes/twentysixteen-child/images/favicon.png">
+    <meta property="og:image"
+        content="https://aries908218.files.wordpress.com/2022/07/noibo.png">
+</head>
+
+<style>
+    body {
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p {
+        color: #fff;
+        position: absolute;
+        font-size: 250px;
+        opacity: 0.2;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-family: sans-serif;
+    }
+  
+
+.sonblogloginform{
+    width:300px;
+    padding:20px;
+    background-color: rgba(255, 0, 0, 0.9);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:white;
+    text-align:center;
+    border-radius:20px;
+    font-size:16px;
+    box-shadow:3px 3px 8px #16537e;
+
+}
+
+
+
+.name{
+    margin:0;
+    font-size:20px;
+    font-weight:600}
+
+.sonblogloginform input[type="text"],.sonblogloginform input[type="password"]{
+    background:none;border:1px solid white;
+    outline:none;
+    border-radius:20px;
+    color:white;
+    padding:5px;
+    text-align:center;
+    width:170px}
+
+.sonblogloginform input[type="text"]:focus,.sonblogloginform input[type="password"]:focus{border: 2px solid #16537E;}
+
+.sonblogloginform input[type="submit"]{padding:3px 20px;background:rgba(0,0,0,0.5);border:1px solid white;border-radius:5px;outline:none;color:white;width:170px}
+
+.sonblogloginform input[type="submit"]:hover{border:0;color:#0084ff;box-shadow:3px 3px 8px #16537e}
+
+.sonblogloginform svg{position:absolute;}
+
+svg.sonblog{width:24px;height::24px;fill:currentColor; right: 84px;}
+
+.hidden{display:none}
+</style>
+
+<body>
+
+    <canvas id="canvas"></canvas>
+    <div class='my-menu'>
+
+<div class="sonblogloginwrap">
+            <div class="sonblogloginform">
+
+                <div class="name">Muốn đi tiếp hả :/</div>
+                <br>
+                <div style=" width: auto">
+                <input type="password" placeholder="Nhập mật khẩu" id="password" />
+
+                <svg class="sonblog icon1" viewBox="0 0 24 24" onclick="show()">
+
+                <path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" /></svg>
+                </div><br>
+
+                <input type="submit" value="Xác Minh" onclick="verify()" />
+
+            </div>
+        </div>
+         
+
+         
+    </div>
+    <script src="scriptlock.js"></script>
+</body>
+
+</html>
+
