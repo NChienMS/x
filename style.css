@@ -667,7 +667,8 @@ p {
 .luta-tet-right{
 position:fixed;
 bottom: 0;
-right:-20px;
+right:-40px;
+bottom: -20px;
 z-index:100;
 width:180px;/*kích thước câu đối bên phải, bạn có thể tăng hoặc giảm*/
 }
