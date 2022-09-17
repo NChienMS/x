@@ -66,14 +66,14 @@ display:none
     width: 100%;
     height: 100vh;
     background-attachment: fixed;
-    background: var(--bg-main);
+    background:#d7d7d7 ;
     transition: all .3s linear;
     -moz-transition: all .3s linear;
     -webkit-transition: all .3s linear;
     -o-transition: all .3s linear;
 }
 .app.dark {
-    background: var(--bg-dark);
+    background: #717171;
 }
 
 .card {
@@ -105,7 +105,7 @@ display:none
     border-radius: 7px;
 }
 .app.dark .card {
-    background: var(--bg-dark);
+    background: #393d42;
     box-shadow: var(--outer-shadow-dark);
 }
 .card__title {
