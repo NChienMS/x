@@ -252,7 +252,7 @@ $( ".lammoipopupnhantien" ).hover(
       var tongtienlixi = 0;
       var tiendalixi;
       document.getElementById("xuatluotquay").innerHTML = solanquay;
-      
+      var votay = document.getElementById("votay");
       var matluot = document.getElementById("matluot");
       var dangquay = document.getElementById("dangquay");
       
@@ -316,7 +316,10 @@ $( ".lammoipopupnhantien" ).hover(
               // hình ảnh động hiện tại. Người dùng sẽ phải thiết lập lại trước khi quay lại.
               wheelSpinning = true;
           }
-         
+          if (dem < solanquay) {
+          dangquay.play();
+          matluot.pause();
+          }
       }
       
       // -------------------------------------------------------
@@ -386,6 +389,7 @@ $( ".lammoipopupnhantien" ).hover(
               if (indicatedSegment.text == 'Ô mất lượt' ||  indicatedSegment.text == 'Happy New Year') { // Nếu quay vào 0k
                   matluot.pause();
                   matluot.currentTime = 0;
+                  matluot.play(); // Bật nhạc fail
 
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
@@ -408,12 +412,14 @@ $( ".lammoipopupnhantien" ).hover(
               $(".nutbatdau").css("background-image", "url(img/controhetluot.png)");
       
               if (indicatedSegment.text == 'Ô mất lượt') {
+                  matluot.play(); // Bật nhạc fail
 
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
                   swal("Rất tiếc!", "Bạn không nhận được đồng nào và số lượt quay đã hết!", "error");
               } else {
+                  votay.play(); // Bật nhạc vỗ tay
 
                   document.getElementById("annhantien").style.display = ""; // Hiển thị nút nhận tiền
                   document.getElementById("xuatsotien").src = "img/" + indicatedSegment.text.replace(".000 VNĐ", "") + "k.jpg"; // Xuất ảnh tiền
