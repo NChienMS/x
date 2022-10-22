@@ -210,9 +210,8 @@
   }
 }
          body {
-         background: url("../img/background.jpg") no-repeat fixed center;
-         background-position: center center;
-         background-size: cover;
+         background: url("../img/background.jpg") ;
+      
          font-size: 30px;
          color:white;
          }
