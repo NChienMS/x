@@ -227,7 +227,7 @@ $( ".lammoipopupnhantien" ).hover(
               'spins': 10, // Số vòng quay hoàn chỉnh mặc định.
               'callbackFinished': alertPrize,
               //'callbackSound': playSound, // Chức năng gọi khi âm thanh đánh dấu được kích hoạt.
-              'soundTrigger': 'pin', // Chỉ định các chân là để kích hoạt âm thanh, tùy chọn khác là 'phân đoạn'.
+              //'soundTrigger': 'pin', // Chỉ định các chân là để kích hoạt âm thanh, tùy chọn khác là 'phân đoạn'.
               'type'             : 'spinToStop',
               'duration'         : 6.4,
           },
@@ -386,8 +386,8 @@ $( ".lammoipopupnhantien" ).hover(
               
       
               if (indicatedSegment.text == 'Ô mất lượt' ||  indicatedSegment.text == 'Happy New Year') { // Nếu quay vào 0k
-                  matluot.pause();
-                  matluot.currentTime = 0;
+                  //matluot.pause();
+                  //matluot.currentTime = 0;
                   matluot.play(); // Bật nhạc fail
 
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
