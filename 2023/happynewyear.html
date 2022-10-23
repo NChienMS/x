@@ -257,17 +257,12 @@ $( ".lammoipopupnhantien" ).hover(
       var dangquay = document.getElementById("dangquay");
         function playSound() {
           // Dừng và tua lại âm thanh nếu nó đã phát.
-          //audio.pause();
-          //audio.currentTime = 0;
+          audio.pause();
+          audio.currentTime = 0;
       
           // Phát âm thanh.
-         // audio.play();
-
+          audio.play();
       }
-       function playvotay(){
-        votay.play();
-       }
-
       // -------------------------------------------------------
       // Xử lý thanh range
       // -------------------------------------------------------
@@ -389,10 +384,10 @@ $( ".lammoipopupnhantien" ).hover(
               
       
               if (indicatedSegment.text == 'Ô mất lượt' ||  indicatedSegment.text == 'Happy New Year') { // Nếu quay vào 0k
-                  //matluot.pause();
-                  //matluot.currentTime = 0;
-                  //matluot.play(); // Bật nhạc fail
-                  playvotay();
+                  matluot.pause();
+                  matluot.currentTime = 0;
+                  matluot.play(); // Bật nhạc fail
+
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
@@ -402,8 +397,8 @@ $( ".lammoipopupnhantien" ).hover(
               
 
               } else { // Nếu không quay vào 0k
-                  //votay.play(); // Bật nhạc vỗ tay
-                  playvotay();
+                  votay.play(); // Bật nhạc vỗ tay
+
                   document.getElementById("annhantien").style.display = ""; // Hiển thị nút nhận tiền
                   document.getElementById("xuatsotien").src = "img/" + indicatedSegment.text.replace(".000 VNĐ", "") + "k.jpg"; // Xuất ảnh tiền
 
@@ -414,15 +409,15 @@ $( ".lammoipopupnhantien" ).hover(
               $(".nutbatdau").css("background-image", "url(img/controhetluot.png)");
       
               if (indicatedSegment.text == 'Ô mất lượt') {
-                  //matluot.play(); // Bật nhạc fail
-                  playvotay();
+                  matluot.play(); // Bật nhạc fail
+
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
                   swal("Rất tiếc!", "Bạn không nhận được đồng nào và số lượt quay đã hết!", "error");
               } else {
-                  //votay.play(); // Bật nhạc vỗ tay
-                  playvotay();
+                  votay.play(); // Bật nhạc vỗ tay
+
                   document.getElementById("annhantien").style.display = ""; // Hiển thị nút nhận tiền
                   document.getElementById("xuatsotien").src = "img/" + indicatedSegment.text.replace(".000 VNĐ", "") + "k.jpg"; // Xuất ảnh tiền
 
