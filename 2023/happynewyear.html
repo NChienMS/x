@@ -255,18 +255,13 @@ $( ".lammoipopupnhantien" ).hover(
       let votay = document.getElementById("votay");
       let matluot = document.getElementById("matluot");
       let dangquay = document.getElementById("dangquay");
-      var demaudio = 0;
-      function playSound() {
-          demaudio = demaudio +1;
-          if ( demaudio > 2 ) {return;} else {
+        function playSound() {
           // Dừng và tua lại âm thanh nếu nó đã phát.
-          audio.pause();
-          audio.currentTime = 0;
+          //audio.pause();
+          //audio.currentTime = 0;
       
           // Phát âm thanh.
           audio.play();
-
-        }
       }
       
       // -------------------------------------------------------
