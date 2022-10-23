@@ -257,11 +257,11 @@ $( ".lammoipopupnhantien" ).hover(
       var dangquay = document.getElementById("dangquay");
         function playSound() {
           // Dừng và tua lại âm thanh nếu nó đã phát.
-          audio.pause();
-          audio.currentTime = 0;
+          //audio.pause();
+          //audio.currentTime = 0;
       
           // Phát âm thanh.
-          audio.play();
+          //audio.play();
       }
       // -------------------------------------------------------
       // Xử lý thanh range
@@ -384,10 +384,13 @@ $( ".lammoipopupnhantien" ).hover(
               
       
               if (indicatedSegment.text == 'Ô mất lượt' ||  indicatedSegment.text == 'Happy New Year') { // Nếu quay vào 0k
+                  if (dem < solanquay) {
+          
+          
                   matluot.pause();
                   matluot.currentTime = 0;
                   matluot.play(); // Bật nhạc fail
-
+                  }
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
@@ -409,8 +412,14 @@ $( ".lammoipopupnhantien" ).hover(
               $(".nutbatdau").css("background-image", "url(img/controhetluot.png)");
       
               if (indicatedSegment.text == 'Ô mất lượt') {
+                  //matluot.play(); // Bật nhạc fail
+                  if (dem < solanquay) {
+          
+          
+                  matluot.pause();
+                  matluot.currentTime = 0;
                   matluot.play(); // Bật nhạc fail
-
+                  }
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
