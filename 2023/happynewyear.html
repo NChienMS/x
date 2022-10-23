@@ -226,8 +226,8 @@ $( ".lammoipopupnhantien" ).hover(
               'duration': 20, // Thời lượng tính bằng giây.
               'spins': 10, // Số vòng quay hoàn chỉnh mặc định.
               'callbackFinished': alertPrize,
-              //'callbackSound': playSound, // Chức năng gọi khi âm thanh đánh dấu được kích hoạt.
-              //'soundTrigger': 'pin', // Chỉ định các chân là để kích hoạt âm thanh, tùy chọn khác là 'phân đoạn'.
+              'callbackSound': playSound, // Chức năng gọi khi âm thanh đánh dấu được kích hoạt.
+              'soundTrigger': 'pin', // Chỉ định các chân là để kích hoạt âm thanh, tùy chọn khác là 'phân đoạn'.
               'type'             : 'spinToStop',
               'duration'         : 6.4,
           },
@@ -235,7 +235,7 @@ $( ".lammoipopupnhantien" ).hover(
               'number': 36, // Số lượng chân. Họ không gian đều xung quanh bánh xe.
               'responsive': true,
               'fillStyle': 'silver',
-              'outerRadius': 4,
+              'outerRadius': 2,
           }
       });
       
@@ -244,7 +244,7 @@ $( ".lammoipopupnhantien" ).hover(
       let wheelSpinning = false;
       // ---------------------------------------------------------------------
       // Tải âm thanh đánh dấu và chức năng phát được gọi khi pin đi qua con trỏ.
-      let audio = new Audio('sound/tick.mp3'); // Tạo đối tượng âm thanh và tải tập tin tick.mp3.
+      //let audio = new Audio('sound/tick.mp3'); // Tạo đối tượng âm thanh và tải tập tin tick.mp3.
       
       var dem = 0;
       var demnhantien = 0; // Đếm số lần click vào nút nhận tiền
