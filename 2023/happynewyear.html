@@ -58,7 +58,7 @@
       <div style="position:fixed;z-index:99;bottom:-50px;left:0;width:100%;height:500px;background:url(img/bot1.png) repeat-x bottom left;"></div>
       <img class="responsive3" style="position:fixed;z-index:99;bottom:20px;left:20px" src="img/bot2.png"/>
       <div class="nutcaidat" style="position:fixed;bottom:0px;left:20px;" onClick="mopopup()"></div>
-      <div style="position:fixed;bottom:2px;right:20px;z-index: 999; font-size: 14px;line-height:22px;"><div style="float: left;">Tđ quay:</div> <input type="range" id="manhornhe"  onchange="laypower()" min="5" step="0.01" max="100" value="12"></div>
+      <div style="position:fixed;bottom:2px;right:20px;z-index: 999; font-size: 14px;line-height:22px; display: none;"><div style="float: left;">Tđ quay:</div> <input type="range" id="manhornhe"  onchange="laypower()" min="5" step="0.01" max="20" value="13"></div>
 
       <div style="position:fixed;z-index:99;top:2px;left:1px;  text-align: center;"><img  src="img/banglixi.png"/>
           <div style="position:center;top:1000px;z-index:999;text-shadow: 2px 2px 5px #f7ff29;color: #f2f4be; margin-top: -125px" id="xuatluotquay"></div>
@@ -90,7 +90,7 @@
     var matkhau3 = "thieunhi"
     var matkhau4 = "Chiến cổ nhuế";
     var matkhau5 = "Gia đình là số 1";
-    var solanquay = 5;
+    var solanquay = 3;
     var Pass="hihi"
   
       // Sau khi load trang sẽ yêu cầu nhập mật khẩu
@@ -232,7 +232,7 @@ $( ".lammoipopupnhantien" ).hover(
               'duration'         : 6.4,
           },
           'pins': {
-              'number': 36, // Số lượng chân. Họ không gian đều xung quanh bánh xe.
+              'number': 32, // Số lượng chân. Họ không gian đều xung quanh bánh xe.
               'responsive': true,
               'fillStyle': 'silver',
               'outerRadius': 2,
@@ -298,7 +298,7 @@ $( ".lammoipopupnhantien" ).hover(
                 }
                 let stop = Math.floor((Math.random() * 44)); //Giá trị cao nhất 44
                 let stopAt = start + stop;
-
+                //alert(stopAt);
 
                
                 theWheel.animation.stopAngle = stopAt;
@@ -412,7 +412,7 @@ $( ".lammoipopupnhantien" ).hover(
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
-                  swal("Thật tiếc!", "Bạn quay vào ô " + indicatedSegment.text + "\nBạn còn " + (solanquay - dem) + " lần quay\nChú ý: Nếu quay tiếp bạn sẽ mất số tiền trước đó!", "error");
+                  swal("Thật tiếc!", "Bạn quay vào ô " + indicatedSegment.text + "\nBạn còn " + (solanquay - dem) + " lần quay\nChúc bạn may mắn", "error");
 
                 
               
@@ -432,7 +432,7 @@ $( ".lammoipopupnhantien" ).hover(
               document.getElementById("xuatluotquay").innerHTML = "0";
               $(".nutbatdau").css("background-image", "url(img/controhetluot.png)");
       
-              if (indicatedSegment.text == 'Tấn tài - Tấn Lộc') {
+              if (indicatedSegment.text == 'Tấn tài - Tấn Lộc' ||  indicatedSegment.text == 'Happy New Year') {
                   matluot.play(); // Bật nhạc fail
                   // tác dụng để chạy âm thanh rên ios, ios ko cho tự phát
                   if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
@@ -443,7 +443,7 @@ $( ".lammoipopupnhantien" ).hover(
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
-                  swal("Rất tiếc!", "Bạn không nhận được đồng nào và số lượt quay đã hết!", "error");
+                  swal("Rất tiếc!", "Bạn không nhận được đồng nào và số lượt quay đã hết!\n Chúc bạn và gia đình Năm Mới Vui Vẻ - Hạnh Phúc", "error");
               } else {
                   votay.play(); // Bật nhạc vỗ tay
                   if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
