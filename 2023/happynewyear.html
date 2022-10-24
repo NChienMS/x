@@ -244,9 +244,10 @@ $( ".lammoipopupnhantien" ).hover(
       let wheelSpinning = false;
       // ---------------------------------------------------------------------
       // Tải âm thanh đánh dấu và chức năng phát được gọi khi pin đi qua con trỏ.
-      let audio = new Audio('data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV'); // Tạo đối tượng âm thanh và tải tập tin tick.mp3.
-
-
+      let audio = new Audio('sound/tick.mp3'); // Tạo đối tượng âm thanh và tải tập tin tick.mp3.
+      const soundEffect = new Audio();
+      soundEffect.autoplay = true;
+      soundEffect.src = "sound/matluot.mp3"
       var dem = 0;
       var demnhantien = 0; // Đếm số lần click vào nút nhận tiền
       var lichsulixi = "";
@@ -260,11 +261,11 @@ $( ".lammoipopupnhantien" ).hover(
         function playSound() {
           // Dừng và tua lại âm thanh nếu nó đã phát.
           demaudio = demaudio +1;
-          audio.pause();
-          audio.currentTime = 0;
+          //audio.pause();
+          //audio.currentTime = 0;
       
           // Phát âm thanh.
-          audio.play();
+          //audio.play();
       }
       // -------------------------------------------------------
       // Xử lý thanh range
@@ -277,6 +278,7 @@ $( ".lammoipopupnhantien" ).hover(
       function stopAngle() {
                 //Ta có: 360 độ chia 8 bằng 45 độ cho mỗi giải thưởng.
                 //VD: Giải 3 => Có gốc độ từ 91 đến 135.
+                soundEffect.src = "data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
                 theWheel.rotationAngle = 20;
                 var myArray = [1, 91, 226];
                 var start = myArray[Math.floor(Math.random() * myArray.length)]; 
@@ -391,6 +393,10 @@ $( ".lammoipopupnhantien" ).hover(
                   matluot.pause();
                   matluot.currentTime = 0;
                   matluot.play(); // Bật nhạc fail
+                  //soundEffect.src = 'sound/matluot.mp3'
+                  if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
+                      soundEffect.src = 'sound/matluot.mp3'
+                      }
                  
                   demaudio = 0;
 
@@ -416,7 +422,7 @@ $( ".lammoipopupnhantien" ).hover(
       
               if (indicatedSegment.text == 'Ô mất lượt') {
                   matluot.play(); // Bật nhạc fail
-
+                  //soundEffect.src = 'sound/matluot.mp3'
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
