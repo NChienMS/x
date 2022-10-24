@@ -245,8 +245,8 @@ $( ".lammoipopupnhantien" ).hover(
       // ---------------------------------------------------------------------
       // Tải âm thanh đánh dấu và chức năng phát được gọi khi pin đi qua con trỏ.
       let audio = new Audio('sound/tick.mp3'); // Tạo đối tượng âm thanh và tải tập tin tick.mp3.
-     let votay2 = new Audio('sound/votay.mp3');
-     let matluot2 = new Audio('sound/matluot.mp3');
+      let votay2 = new Audio('sound/votay.mp3');
+      let matluot2 = new Audio('sound/matluot.mp3');
 
       var dem = 0;
       var demnhantien = 0; // Đếm số lần click vào nút nhận tiền
@@ -261,11 +261,11 @@ $( ".lammoipopupnhantien" ).hover(
         function playSound() {
           // Dừng và tua lại âm thanh nếu nó đã phát.
           demaudio = demaudio +1;
-          audio.pause();
-          audio.currentTime = 0;
+          //audio.pause();
+          //audio.currentTime = 0;
       
           // Phát âm thanh.
-          audio.play();
+          //audio.play();
       }
       // -------------------------------------------------------
       // Xử lý thanh range
