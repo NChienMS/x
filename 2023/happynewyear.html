@@ -57,8 +57,8 @@
       <img class="responsive2" style="position:fixed;z-index:99;top:0px;right:0px" src="img/hea1.png"/>
       <div style="position:fixed;z-index:99;bottom:-50px;left:0;width:100%;height:500px;background:url(img/bot1.png) repeat-x bottom left;"></div>
       <img class="responsive3" style="position:fixed;z-index:99;bottom:20px;left:20px" src="img/bot2.png"/>
-      <div class="nutcaidat" style="position:fixed;bottom:0px;left:20px" onClick="mopopup()"></div>
-      <input type="range" id="manhornhe" style="position:fixed;bottom:2px;right:20px;z-index: 999" onchange="laypower()" min="5" step="0.01" max="20" value="13">
+      <div class="nutcaidat" style="position:fixed;bottom:0px;left:20px;" onClick="mopopup()"></div>
+      <div style="position:fixed;bottom:2px;right:20px;z-index: 999; font-size: 14px;line-height:22px;"><div style="float: left;">Tđ quay:</div> <input type="range" id="manhornhe"  onchange="laypower()" min="5" step="0.01" max="100" value="12"></div>
 
       <div style="position:fixed;z-index:99;top:2px;left:1px;  text-align: center;"><img  src="img/banglixi.png"/>
           <div style="position:center;top:1000px;z-index:999;text-shadow: 2px 2px 5px #f7ff29;color: #f2f4be; margin-top: -125px" id="xuatluotquay"></div>
@@ -98,7 +98,7 @@
    
                   swal({
                   title: "Vòng quay bị khoá!",
-                  text: "Nhập '2023' để mở khóa\nBạn có 5 lượt quay, khi quay lượt thứ n +1 sẽ mất quà của lượt n",
+                  text: "Nhập '2023' để mở khóa\nBạn có 5 lượt quay, Chúc bạn Năm Mới Vui Vẻ ^^",
                   type: "input",
                   showCancelButton: false, // Có hiển thị nút cancel không(true = có)
                   closeOnConfirm: false, // Có thể tắt popup khi nhấp Ok không (true = có)
@@ -186,7 +186,7 @@ $( ".lammoipopupnhantien" ).hover(
               'textFillStyle': '#ffffff'
           }, {
               'fillStyle': '#910f06',
-              'text': '100.000 VND',
+              'text': '100.000 VNĐ',
               'textFontSize': 20,
               'textFillStyle': '#ffffff'
           }, {
@@ -412,7 +412,7 @@ $( ".lammoipopupnhantien" ).hover(
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
-                  swal("Thật tiếc!", "Bạn quay vào ô" + indicatedSegment.text + "\nBạn còn " + (solanquay - dem) + " lần quay\nChú ý: Nếu quay tiếp bạn sẽ mất số tiền trước đó!", "error");
+                  swal("Thật tiếc!", "Bạn quay vào ô " + indicatedSegment.text + "\nBạn còn " + (solanquay - dem) + " lần quay\nChú ý: Nếu quay tiếp bạn sẽ mất số tiền trước đó!", "error");
 
                 
               
@@ -426,7 +426,7 @@ $( ".lammoipopupnhantien" ).hover(
                   document.getElementById("annhantien").style.display = ""; // Hiển thị nút nhận tiền
                   document.getElementById("xuatsotien").src = "img/" + indicatedSegment.text.replace(".000 VNĐ", "") + "k.jpg"; // Xuất ảnh tiền
 
-                  swal("Tết ấm no!", "Bạn quay vào ô " + indicatedSegment.text + "\nBạn còn " + (solanquay - dem) + " lần quay\nChú ý: Nếu quay tiếp bạn sẽ mất số tiền trước đó!", "success");
+                  swal("Tết ấm no!", "Bạn nhận được " + indicatedSegment.text + "\nBạn còn " + (solanquay - dem) + " lần quay\nChú ý: Nếu quay tiếp bạn sẽ mất số tiền trước đó!", "success");
               }
           } else { // Nếu hết lượt quay(dem = solanquay)
               document.getElementById("xuatluotquay").innerHTML = "0";
