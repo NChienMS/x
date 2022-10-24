@@ -428,6 +428,7 @@ var handleButton = function handleButton(event, params, modal) {
       } else if (_hasClass$isDescendant.isDescendant(modal, target) && target.tagName === 'BUTTON') {
         sweetAlert.close();
           matluot.pause();
+        soundEffect.pause();
       }
       break;
   }
