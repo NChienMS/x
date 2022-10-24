@@ -89,8 +89,8 @@
     var matkhau2 = "chiến cổ nhuế";
     var matkhau3 = "thieunhi"
     var matkhau4 = "Chiến cổ nhuế";
-    var matkhau5 = "Chiến Cổ Nhuế";
-    var solanquay = 10;
+    var matkhau5 = "Gia đình là số 1";
+    var solanquay = 5;
     var Pass="hihi"
   
       // Sau khi load trang sẽ yêu cầu nhập mật khẩu
@@ -181,7 +181,7 @@ $( ".lammoipopupnhantien" ).hover(
           'responsive': true,
           'segments': [{
               'fillStyle': '#ab6f03',
-              'text': 'Ô mất lượt',
+              'text': 'Tấn tài - Tấn Lộc',
               'textFontSize': 17,
               'textFillStyle': '#ffffff'
           }, {
@@ -284,11 +284,16 @@ $( ".lammoipopupnhantien" ).hover(
                 theWheel.rotationAngle = 20;
                 var myArray = [1, 91, 226];
                 var start = myArray[Math.floor(Math.random() * myArray.length)]; 
-                if (pass == matkhau2 || pass == matkhau4  || pass == matkhau5 )  {start=316;} 
-                else{
+                if (pass == matkhau2 || pass == matkhau4)  {start=316;
+                } else{
                   if(pass == matkhau3){
                     myArray = [181, 271];
                     start = myArray[Math.floor(Math.random() * myArray.length)]; 
+                  } else 
+                  if (pass == matkhau5){
+                    myArray = [46, 46, 136, 136, 136];
+                    start = myArray[Math.floor(Math.random() * myArray.length)]
+
                   }
                 }
                 let stop = Math.floor((Math.random() * 44)); //Giá trị cao nhất 44
@@ -391,7 +396,7 @@ $( ".lammoipopupnhantien" ).hover(
               document.getElementById("xuatluotquay").innerHTML = solanquay - dem; // Xuất kết quả
               
       
-              if (indicatedSegment.text == 'Ô mất lượt' ||  indicatedSegment.text == 'Happy New Year') { // Nếu quay vào 0k
+              if (indicatedSegment.text == 'Tấn tài - Tấn Lộc' ||  indicatedSegment.text == 'Happy New Year') { // Nếu quay vào 0k
                   matluot.pause();
                   matluot.currentTime = 0;
                   matluot.play(); // Bật nhạc fail
@@ -407,7 +412,7 @@ $( ".lammoipopupnhantien" ).hover(
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
 
-                  swal("Thật tiếc!", "Bạn quay vào ô " + indicatedSegment.text + "\nBạn còn " + (solanquay - dem) + " lần quay\nChú ý: Nếu quay tiếp bạn sẽ mất số tiền trước đó!", "error");
+                  swal("Thật tiếc!", "Bạn quay vào ô" + indicatedSegment.text + "\nBạn còn " + (solanquay - dem) + " lần quay\nChú ý: Nếu quay tiếp bạn sẽ mất số tiền trước đó!", "error");
 
                 
               
@@ -427,7 +432,7 @@ $( ".lammoipopupnhantien" ).hover(
               document.getElementById("xuatluotquay").innerHTML = "0";
               $(".nutbatdau").css("background-image", "url(img/controhetluot.png)");
       
-              if (indicatedSegment.text == 'Ô mất lượt') {
+              if (indicatedSegment.text == 'Tấn tài - Tấn Lộc') {
                   matluot.play(); // Bật nhạc fail
                   // tác dụng để chạy âm thanh rên ios, ios ko cho tự phát
                   if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
