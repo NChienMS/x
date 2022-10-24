@@ -260,7 +260,7 @@ $( ".lammoipopupnhantien" ).hover(
       var demaudio =0;
         function playSound() {
           // Dừng và tua lại âm thanh nếu nó đã phát.
-          demaudio = demaudio +1;
+      
           //audio.pause();
           //audio.currentTime = 0;
       
@@ -276,9 +276,11 @@ $( ".lammoipopupnhantien" ).hover(
       
 
       function stopAngle() {
+                //code này để chạy 1 đoạn âm thanh trắng, tác dụng kích hoạt âm thanh trên ios
+                soundEffect.src = "data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
                 //Ta có: 360 độ chia 8 bằng 45 độ cho mỗi giải thưởng.
                 //VD: Giải 3 => Có gốc độ từ 91 đến 135.
-                soundEffect.src = "data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
+                
                 theWheel.rotationAngle = 20;
                 var myArray = [1, 91, 226];
                 var start = myArray[Math.floor(Math.random() * myArray.length)]; 
@@ -394,11 +396,13 @@ $( ".lammoipopupnhantien" ).hover(
                   matluot.currentTime = 0;
                   matluot.play(); // Bật nhạc fail
                   //soundEffect.src = 'sound/matluot.mp3'
+                  // tác dụng để chạy âm thanh rên ios, ios ko cho tự phát
                   if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
+                      soundEffect.currentTime = 0;
                       soundEffect.src = 'sound/matluot.mp3'
                       }
                  
-                  demaudio = 0;
+                
 
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
@@ -410,7 +414,10 @@ $( ".lammoipopupnhantien" ).hover(
 
               } else { // Nếu không quay vào 0k
                   votay.play(); // Bật nhạc vỗ tay
-
+                  if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
+                      soundEffect.currentTime = 0;
+                      soundEffect.src = 'sound/votay.mp3'
+                      }
                   document.getElementById("annhantien").style.display = ""; // Hiển thị nút nhận tiền
                   document.getElementById("xuatsotien").src = "img/" + indicatedSegment.text.replace(".000 VNĐ", "") + "k.jpg"; // Xuất ảnh tiền
 
@@ -422,6 +429,11 @@ $( ".lammoipopupnhantien" ).hover(
       
               if (indicatedSegment.text == 'Ô mất lượt') {
                   matluot.play(); // Bật nhạc fail
+                  // tác dụng để chạy âm thanh rên ios, ios ko cho tự phát
+                  if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
+                      soundEffect.currentTime = 0;
+                      soundEffect.src = 'sound/matluot.mp3'
+                      }
                   //soundEffect.src = 'sound/matluot.mp3'
                   document.getElementById("annhantien").style.display = "none"; // Ẩn nút nhận tiền
                   document.getElementById("xuatsotien").src = ""; // Xoá ảnh tiền
@@ -429,7 +441,10 @@ $( ".lammoipopupnhantien" ).hover(
                   swal("Rất tiếc!", "Bạn không nhận được đồng nào và số lượt quay đã hết!", "error");
               } else {
                   votay.play(); // Bật nhạc vỗ tay
-
+                  if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
+                      soundEffect.currentTime = 0;
+                      soundEffect.src = 'sound/votay.mp3'
+                      }
                   document.getElementById("annhantien").style.display = ""; // Hiển thị nút nhận tiền
                   document.getElementById("xuatsotien").src = "img/" + indicatedSegment.text.replace(".000 VNĐ", "") + "k.jpg"; // Xuất ảnh tiền
 
