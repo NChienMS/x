@@ -99,7 +99,7 @@
    
                   swal({
                   title: "Vòng quay bị khoá!",
-                  text: "Nhập '2023' để mở khóa\nBạn có 3 lượt quay\n Chúc bạn Năm Mới Vui Vẻ ^^",
+                  text: "Nhập '2023' để mở khóa\nBạn có 3 lượt quay.\n Chúc bạn Năm Mới Vui Vẻ ^^",
                   type: "input",
                   showCancelButton: false, // Có hiển thị nút cancel không(true = có)
                   closeOnConfirm: false, // Có thể tắt popup khi nhấp Ok không (true = có)
@@ -434,8 +434,11 @@ $( ".lammoipopupnhantien" ).hover(
               $(".nutbatdau").css("background-image", "url(img/controhetluot.png)");
       
               if (indicatedSegment.text == 'Tấn tài - Tấn Lộc' ||  indicatedSegment.text == 'Happy New Year') {
+                  matluot.pause();
+                  matluot.currentTime = 0;
                   matluot.play(); // Bật nhạc fail
                   // tác dụng để chạy âm thanh rên ios, ios ko cho tự phát
+
                   if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
                       soundEffect.currentTime = 0;
                       soundEffect.src = 'sound/matluot.mp3'
@@ -446,6 +449,8 @@ $( ".lammoipopupnhantien" ).hover(
 
                   swal("Rất tiếc!", "Bạn không nhận được đồng nào và số lượt quay đã hết!\n Chúc bạn và gia đình Năm Mới Vui Vẻ - Hạnh Phúc", "error");
               } else {
+                  votay.pause();
+                  votay.currentTime = 0;
                   votay.play(); // Bật nhạc vỗ tay
                   if( /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
                       soundEffect.currentTime = 0;
