@@ -600,7 +600,7 @@ p {
     width: 300px;
     margin: 0 auto;
     box-sizing: border-box;
-    margin-top: 40px;
+    margin-top: 100px;
     box-shadow: 0px 2px 6px rgba(0,0,0,1);
     border-radius: 10px;
     background: #fff;
@@ -613,7 +613,7 @@ p {
     height: 280px;
     margin: 0 auto;
     box-sizing: border-box;
-    margin-top: 20%;
+    margin-top: 100px;
     box-shadow: 0px 2px 6px rgba(0,0,0,1);
     border-radius: 10px;
     background: #fff;
@@ -659,8 +659,9 @@ p {
 }
  
 @media screen and (max-width: 720px) {
-.popup-content {
-    width:90%;
+
+.popup-content2 {
+    margin-top: 80px
     }  
  img.qrck {
     width: 200px;
@@ -679,7 +680,6 @@ p {
     margin-top: 80px;
     }
 }
-
 
 
 
