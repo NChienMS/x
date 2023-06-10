@@ -57,7 +57,7 @@ autoplay: true
   
 //in thông báo khi nhấn copy
 
-
+/*
 
 //Chống copy
 function killCopy(e){
@@ -156,7 +156,6 @@ setInterval((e) => {
 
 
 
-/*
 ấn bất kỳ trên web sẽ phát nhạc ==================
 document.addEventListener('click', musicPlay);
 function musicPlay() {
