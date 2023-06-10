@@ -1,5 +1,5 @@
 
- function verify(){if (document.querySelector('#password').value === 'Chien908218'){document.querySelector('.sonblogloginwrap').classList.add('hidden');window.open("internal.html","_self");}
+ function verify(){if (document.querySelector('#password').value === 'Chien908218'){document.querySelector('.sonblogloginwrap').classList.add('hidden');window.open("lock.html","_self");}
 
 else{alert('Cảnh báo! Yếu thì đừng ra gió :)');password.setSelectionRange(0,password.value.length)}
 
