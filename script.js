@@ -19,43 +19,9 @@ var YWPParams =
 {
 autoplay: true
 }
-//coppy nội dung và hiện thông báo
-  function myFunction() {
-    var copyText = document.getElementById("myInput");
-    var input=document.createElement("INPUT");
-    document.body.appendChild(input);
-    input.value=copyText.innerHTML;
-    input.select();
-    input.setSelectionRange(0, 99999);
-    document.execCommand("copy");
-    alert('Mb Bank | 82 666666 99\n ______\n"Copy thành công", Gửi nhiều tiền vào nhé');
-    document.body.removeChild(input);
-    var tooltip = document.getElementById("myTooltip");
-    tooltip.style.display='block';
-    tooltip.innerHTML = "Đã copy";
-
-  }
-
-  function myFunction2() {
-    var copyText = document.getElementById("myInput2");
-    var input=document.createElement("INPUT");
-    document.body.appendChild(input);
-    input.value=copyText.innerHTML;
-    input.select();
-    input.setSelectionRange(0, 99999);
-    document.execCommand("copy");
-    alert('Vietcombank | 102 055 3977\n ______\n"Copy thành công", Gửi nhiều tiền vào nhé');
-    document.body.removeChild(input);
-    var tooltip = document.getElementById("myTooltip");
-    tooltip.style.display='block';
-    tooltip.innerHTML = "Đã copy";
-
-  }
 
 
-    
-  
-//in thông báo khi nhấn copy
+
 
 /*
 
