@@ -35,6 +35,9 @@ html {
     --primary-color: #31344b;
     --text-color: #777777;
     --text-color-dark: #B0B3B8;
+    --text-color2: black;
+    --text-color-dark2: white;
+
     --blue-color: #1877f2;
     --blue-color-2: #e9f5ff;
     --outer-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
@@ -198,6 +201,17 @@ display:none
 .app.dark .card__title--description p {
     color: var(--text-color-dark);
 }
+
+.card__title--description2 td {
+    position: relative;
+    color: var(--text-color2);
+}
+
+.app.dark .card__title--description2 td  {
+    color: var(--text-color-dark2);
+}
+
+
 .mt-10 {
     margin-top: 10px;
 }
