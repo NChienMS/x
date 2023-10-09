@@ -173,7 +173,8 @@
                             </div>
                         </div>  
 
-                        <section id ="myInput">8266666699</section>
+                        
+                         <!--Icon mb-->
                         <div class="col col-lg-3 mt-10">
                             <a class="card__item" popup-open="popup-2" href="javascript:void(0)">
                             <button   class="card__item" id="btn">
@@ -188,20 +189,27 @@
                         </div> 
 
 
-<button onclick="copy('noi dung copy')">Copy</button>
-<script>
-function copy(text) {
-  document.body.insertAdjacentHTML("beforeend","<div id=\"copy\" contenteditable>"+text+"</div>")
-  document.getElementById("copy").focus();
-  document.execCommand("selectAll");
-  document.execCommand("copy");
-  document.getElementById("copy").remove();
-}
-</script>
+                         <!--copy text khi nhấn nút coppy-->
 
-                        
+                    <script>
+                    function copymb(text) {
+                      document.body.insertAdjacentHTML("beforeend","<div id=\"copy\" contenteditable>"+text+"</div>")
+                      document.getElementById("copy").focus();
+                      document.execCommand("selectAll");
+                      document.execCommand("copy");
+                      document.getElementById("copy").remove();
+                        alert('Mb Bank | 82 666666 99\n ______\n"Copy thành công", Gửi nhiều tiền vào nhé');
+                        document.body.removeChild(input);
+                        var tooltip = document.getElementById("myTooltip");
+                        tooltip.style.display='block';
+                        tooltip.innerHTML = "Đã copy";
+                    }
+                    </script>
 
-                        <div class="popup" popup-name="popup-2">
+
+                         <!--popup khi nhấn vào nút mb bank-->
+
+                <div class="popup" popup-name="popup-2">
                     <div class="popup-content">
                         <div class="tieude">Mb Bank
                                 
@@ -211,7 +219,7 @@ function copy(text) {
                         </div>
                         
                         <div class="button_copy">
-                                    <button onclick="myFunction()"  class="card__copy" id="btn">
+                                    <button onclick="copymb('8266666699')"  class="card__copy" id="btn">
                                     <div  class="card__link">
                                         <div class="link__icon">
                                             Copy
@@ -227,8 +235,7 @@ function copy(text) {
                 </div>
 
                         
-                        
-                        <section id ="myInput2">1020553977</section>
+                         <!--Icon VCB-->
                         <div class="col col-lg-3 mt-10">
                             <a class="card__item" popup-open="popup-1" href="javascript:void(0)">
                             <button   class="card__item" id="btn">
@@ -241,6 +248,23 @@ function copy(text) {
                             </a> 
                         </div> 
 
+
+                         <!--Icon copy khi nhấn nút coppy-->
+                    <script>
+                    function copyvcb(text) {
+                      document.body.insertAdjacentHTML("beforeend","<div id=\"copy\" contenteditable>"+text+"</div>")
+                      document.getElementById("copy").focus();
+                      document.execCommand("selectAll");
+                      document.execCommand("copy");
+                      document.getElementById("copy").remove();
+                      alert('Vietcombank | 102 055 3977\n ______\n"Copy thành công", Gửi nhiều tiền vào nhé');
+                      document.body.removeChild(input);
+                      var tooltip = document.getElementById("myTooltip");
+                      tooltip.style.display='block';
+                      tooltip.innerHTML = "Đã copy";
+                    }
+                    </script>
+
                    
 
                     <div class="popup" popup-name="popup-1">
@@ -248,11 +272,11 @@ function copy(text) {
                         <div class="tieude">Vietcombank
                                 
                         </div>
-                        <div class="text_ck">102 055 3977 (NCHIENMS)
+                        <div class="text_ck">1020 553 977 (NCHIENMS)
                                 
                         </div>
                         <div class="button_copy">
-                                    <button onclick="myFunction2()"  class="card__copy" id="btn">
+                                    <button onclick="copyvcb('1020553977')"  class="card__copy" id="btn">
                                     <div  class="card__link">
                                         <div class="link__icon">
                                             Copy
