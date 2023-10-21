@@ -405,7 +405,6 @@ p {
   display: block;
   padding: 14px 0 0 0;
   border: none;
-  border-bottom: 1px solid #d8d8d8;
   margin-top: 26px;
 
 }
@@ -557,5 +556,39 @@ color: #D2D2D2;
 
 .linka:hover{
   color: blue;
+}
+
+
+
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: DeepSkyBlue;
+  background-image: none;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  background: #fff;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+  flex: 1;
+  padding: 0 .5em;
+  color: #fff;
+  cursor: pointer;
+  border-bottom: 1px solid #d8d8d8;
+
 }
 
