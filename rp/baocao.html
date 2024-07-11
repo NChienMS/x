@@ -205,9 +205,9 @@
 
   <h2>Gửi thông tin thành công</h2>
     <br>  
-  <p style="font-size: 16px; margin: 20px;">Cảm ơn bạn đã để lại thông tin, tôi sẽ sớm liên hệ lại sớm nhất</p>
+  <p style="font-size: 16px; margin: 20px;">Cảm ơn!. Nếu nhập sai hãy gửi lại, và báo Chiến nội dung sai</p>
   <p>Xin trân thành cảm ơn!</p>
-   <input type="button" name="Close" class="s3-btn-close" onclick="popupClose();" value="Xác nhận">   
+   <input type="button" name="Close" class="s3-btn-close" onclick="popupClose();" value="Ồ kế">   
   </div>
 
 </div>
@@ -233,7 +233,7 @@
 
                             <!--Cách 2: End HIỂN THỊ THÔNG BÁO DẠNG LINK-->
 
-                        <form onsubmit="submitted=true;" target="hidden_iframe" class="text-left"  role="form" id="ss-form" method="GET" action="https://script.google.com/macros/s/AKfycbzAPx_iUVy7UACgzuCxYnNiI6cXQo5k-KTU-0TJbPvSFLyn-LWHPvzVeKyj24uGIc8DOg/exec">
+                        <form  onsubmit="submitted=true;" target="hidden_iframe" class="text-left"  role="form" id="ss-form" method="GET" action="https://script.google.com/macros/s/AKfycbzAPx_iUVy7UACgzuCxYnNiI6cXQo5k-KTU-0TJbPvSFLyn-LWHPvzVeKyj24uGIc8DOg/exec">
                             <div class="form-detail">
                                   <div class="form-info col-md-6 col-xs-12">
 
@@ -242,6 +242,9 @@
                                         <option selected disabled >Họ Và Tên</option>                                          
                                         <option>Chiến</option>
                                         <option>Nhất</option>
+                                        <option>Yến</option>
+                                        <option>Lan anh</option>
+                                        <option>Ánh</option>
                                         </select>
 
                                     </div>
@@ -251,7 +254,7 @@
                                     <div class="group">      
                                       <input style="padding-left: 0.5em;" title="" required="" class="control-custom" dir="auto" id="Reason" value="" name="Reason" type="text">
                                       <span class="bar"></span>
-                                      <label class="ahihi" style="padding: 0 .5em;">Ghi Chú</label>
+                                      <label class="ahihi" style="padding: 0 .5em;">Nội dung</label>
                                     </div>
 
 <hr color="#DDDDDD" >
@@ -260,16 +263,22 @@
                                     <div class="group group2">    
                                       <input style="padding-left: 0.5em;" title="" required="" class="control-custom" dir="auto" id="day-w" value="" name="day-w" type="text">
                                       <span class="bar"></span>
-                                      <label class="ahihi" style="padding: 0 .5em;">Phát sinh</label>
+                                      <label class="ahihi" style="padding: 0 .5em;">Nhập số tiền</label>
                                     </div>
 <hr color="#DDDDDD" >
 
                                     <div class="group" style="margin-top: 40px;">  
                                     <select title="" required="" class="control-custom" dir="auto" id="option" value="" name="option">   
-                                    <option>Chung</option>
-                                    <option>Riêng</option>
+                                    <option selected disabled >Chọn</option> 
+                                    <option>Nộp tiền</option>
+                                    <option>Mua đồ</option>
                                     </select>
                                     </div>
+
+
+
+                               
+
 <hr color="#DDDDDD" >
 
 
@@ -278,9 +287,12 @@
                             </div>
 
                                 <button  onclick="popupOpen();" class="snip1582"  value="Click to Show Popup" >
-                                    <span >Submit</span>
+                                    <span >Gửi dữ liệu</span>
                                 </button>
-
+                               
+                                 <div   style="margin-top: 16px; text-align:center;"type="reset">
+                                      <a class="delet" style="" href="" type="reset">Xóa nhập lại</a>
+                                 </div>
 
 
 
