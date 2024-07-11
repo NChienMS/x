@@ -113,6 +113,21 @@ body{
   width: 100%;
 }
 
+
+
+.delet{
+    padding:5px 10px; font-size: 14px; color: white; background-color:  #666666;        
+}
+
+
+
+
+
+
+.delet:hover{
+    background-color: black;
+}
+
 * {
     margin: 0;
     padding: 0;
