@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Authentication</title>
+    <style>
+
+#fixedImage { position: fixed; right: 0; bottom: 0; width: 150px; }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('./IMG/background.jpg');
+            background-repeat: repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #authOverlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+
+        #authPopup {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #authPopup input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #authPopup button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #authPopup button:hover {
+            background-color: #45a049;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        #giftButton {
+            background-color: #FFD700;
+            color: #000;
+        }
+
+        #moneyButton {
+            background-color: #FF6347;
+            color: white;
+            position: absolute;
+        }
+
+        #moneyButton:hover {
+            transform: translate(calc(50vw - 100px), calc(50vh - 100px));
+        }
+
+        #moneyButton:active {
+            background-color: #FF4500;
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background: #fff;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        #popup img {
+            margin-top: 10px;
+            width: 120px;
+            height: 80px;
+        }
+
+        #popup button {
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #d32f2f;
+            color: white;
+            cursor: pointer;
+        }
+
+        #popup button:hover {
+            background-color: #b71c1c;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <p style="position: fixed;left: 50%; bottom: 80%; font-size: 20px; color: white; font-weight: bold;">Vui lòng chọn 1 phần quà</p>
+    <img id="fixedImage" src="./IMG/nguoi tuyet.png" alt="Fixed Image">
+    <img style=" position: fixed; left: 0; bottom: 0; width: 300px;" src="./IMG/cay thong.png" alt="Fixed Image">
+    <div id="authOverlay">
+        <div id="authPopup">
+            <p>Vui lòng nhập mật khẩu để truy cập:</p>
+            <input type="text" id="passwordInput" placeholder="Nhập mật khẩu...">
+            <button onclick="checkPassword()">Xác nhận</button>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div id="popup">
+        <p>Đừng buồn, đôi khi mọi việc không như ý mình muốn, hãy chấp nhận với điều mình đang có.</p>
+        <p>Chúc mừng bạn đã trúng phần quà!</p>
+        <img src="./IMG/qua.jpg" alt="Gift"><br>
+        <p style="color: red; font-weight: bold;">Bạn có vui vì phần quà trên không?</p>
+
+        <button onclick="closePopup()">Có</button>
+        <button onclick="closePopup()">Kó</button>
+    </div>
+
+    <div>
+        <button id="giftButton" class="button" onclick="showPopup()">Hộp quà may mắn</button>
+        <button id="moneyButton" class="button" onmouseover="moveButton(this)">100.000 VND</button>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === '908218') { // Change this password as needed
+                document.getElementById('authOverlay').style.display = 'none';
+            } else {
+                alert('Hayzzzzz!');
+            }
+        }
+
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function moveButton(button) {
+            const randomX = Math.random() * (window.innerWidth - button.offsetWidth);
+            const randomY = Math.random() * (window.innerHeight - button.offsetHeight);
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
+    </script>
+</body>
+</html>
