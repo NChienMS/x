@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Authentication</title>
     <style>
+      
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff;
-            background-image: url('https://via.placeholder.com/1200x800/ffcccc/333333?text=Christmas+Background');
-            background-size: cover;
-            background-repeat: no-repeat;
+            background-image: url('./IMG/background.jpg');
+            background-repeat: repeat;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
         }
 
         #authOverlay {
@@ -29,7 +27,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 1000;
         }
 
@@ -50,7 +48,7 @@
         }
 
         #authPopup input {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -91,11 +89,11 @@
         #moneyButton {
             background-color: #FF6347;
             color: white;
-            position: absolute;
+            position: relative;
         }
 
         #moneyButton:hover {
-            transform: translate(calc(50vw - 100px), calc(50vh - 100px));
+            background-color: #FF4500;
         }
 
         #moneyButton:active {
@@ -157,32 +155,30 @@
             z-index: 999;
         }
 
-        @media (max-width: 768px) {
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #000;
-                color: white;
-                font-size: 18px;
-                text-align: center;
-            }
+       
 
-            #authOverlay, #authPopup, #popup, .button {
-                display: none;
-            }
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
 
-            #mobileWarning {
-                display: block;
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
             }
         }
     </style>
 </head>
 <body>
+      <img style=" position: fixed; right: 0; bottom: 0; width: 150px;" src="./IMG/nguoi tuyet.png" alt="Fixed Image">
+    <img style=" position: fixed; left: 0; bottom: 0; width: 300px;" src="./IMG/cay thong.png" alt="Fixed Image">
     <div id="authOverlay">
         <div id="authPopup">
             <p>Vui lòng nhập mật khẩu để truy cập:</p>
-            <input type="password" id="passwordInput" placeholder="Nhập mật khẩu...">
+            <input type="text" id="passwordInput" placeholder="Nhập mật khẩu...">
             <button onclick="checkPassword()">Xác nhận</button>
         </div>
     </div>
@@ -202,7 +198,7 @@
 
     <div>
         <button id="giftButton" class="button" onclick="showPopup()">Hộp quà may mắn</button>
-        <button id="moneyButton" class="button" onmouseover="moveButton(this)">100.000 VND</button>
+        <button id="moneyButton" class="button" onclick="fadeOutButton(this)">100.000 VND</button>
     </div>
 
     <script>
@@ -225,11 +221,11 @@
             document.getElementById('overlay').style.display = 'none';
         }
 
-        function moveButton(button) {
-            const randomX = Math.random() * (window.innerWidth - button.offsetWidth);
-            const randomY = Math.random() * (window.innerHeight - button.offsetHeight);
-            button.style.left = `${randomX}px`;
-            button.style.top = `${randomY}px`;
+        function fadeOutButton(button) {
+            button.classList.add('fade-out');
+            button.addEventListener('animationend', () => {
+                button.style.display = 'none';
+            });
         }
     </script>
 </body>
