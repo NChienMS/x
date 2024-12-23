@@ -5,7 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ở đây có gì đó!</title>
     <style>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
       
+    .call-button {
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .call-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    .call-button:active {
+      transform: scale(1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -208,9 +232,13 @@ text-shadow: 2px 2px 2px;
 
     <div id="popup">
         <p>Đừng buồn, đôi khi mọi việc không như ý mình muốn, hãy chấp nhận với điều mình đang có.</p>
-        <p>Chúc mừng bạn đã trúng phần quà!</p>
+      
+        <a href="tel:+84901234567" class="call-button" style="text-decoration: none;">
+            <p>Chúc mừng bạn đã trúng thẻ điện thoại 50.000VND</p>
+        </a>
+            
         <img src="./IMG/qua.jpg" alt="Gift">
-        <p>Món quà này nằm phía dưới những đám mây cạnh cây thông noel</p>
+        <p>Và món quà này nằm phía dưới những đám mây cạnh cây thông noel</p>
 
         <button onclick="closePopup()">CÓ</button>
         <button style="background-color: blue;" onclick="closePopup()">KÓ</button>
