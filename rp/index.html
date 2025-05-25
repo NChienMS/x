@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quản Lý Tiền</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .hidden {
+      display: none;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 48%;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #219150;
+    }
+    #resetBtn {
+      background-color: #c0392b;
+    }
+    #resetBtn:hover {
+      background-color: #a83228;
+    }
+    #loading {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      z-index: 999;
+      display: none;
+    }
+    /* Popup style */
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2ecc71;
+      color: white;
+      padding: 16px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .popup.error {
+      background: #e74c3c;
+    }
+    .popup .close-btn {
+      float: right;
+      font-weight: bold;
+      margin-left: 12px;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">Đang gửi dữ liệu...</div>
+  <div id="popup" class="popup"><span class="close-btn" onclick="hidePopup()">&times;</span><span id="popupMsg"></span></div>
+
+  <h2>Quản Lý Tiền</h2>
+  <form id="moneyForm" class="group2">
+    <label>Trạng thái:
+      <select id="status" name="status">
+        <option value="IN">IN</option>
+        <option value="OUT">OUT</option>
+      </select>
+    </label>
+
+    <label>Tên quỹ:
+      <select id="fund" name="fund">
+        <option value="Tiền mặt">Tiền mặt</option>
+        <option value="MB- 0123">MB- 0123</option>
+        <option value="MB- 8888">MB- 8888</option>
+        <option value="MB- 6699">MB- 6699</option>
+        <option value="MB- HI">MB- HI</option>
+        <option value="HSBC">HSBC</option>
+        <option value="Momo- Mặc định">Momo- Mặc định</option>
+        <option value="Momo- Thần tài">Momo- Thần tài</option>
+        <option value="VCB">VCB</option>
+        <option value="TECH">TECH</option>
+        <option value="Zalopay">Zalopay</option>
+        <option value="shopeepay">shopeepay</option>
+        <option value="VNpay">VNpay</option>
+        <option value="Khác">Khác</option>
+      </select>
+    </label>
+
+    <label>Số tiền:
+      <input type="text" id="amount" name="amount" required />
+    </label>
+
+    <label>Ngày gửi:
+      <input type="date" id="date" />
+    </label>
+
+    <label>Lý do:
+      <input type="text" id="reason" required />
+    </label>
+
+    <label id="transferWrapper" class="hidden">
+      <input type="checkbox" id="transfer" /> Chuyển tiền sang quỹ khác
+    </label>
+
+    <div id="transferFundWrapper" class="hidden">
+      <label>Chuyển sang quỹ:
+        <select id="transferFund">
+          <option value="Tiền mặt">Tiền mặt</option>
+          <option value="MB- 0123">MB- 0123</option>
+          <option value="MB- 8888">MB- 8888</option>
+          <option value="MB- 6699">MB- 6699</option>
+          <option value="MB- HI">MB- HI</option>
+          <option value="HSBC">HSBC</option>
+          <option value="Momo- Mặc định">Momo- Mặc định</option>
+          <option value="Momo- Thần tài">Momo- Thần tài</option>
+          <option value="VCB">VCB</option>
+          <option value="TECH">TECH</option>
+          <option value="Zalopay">Zalopay</option>
+          <option value="shopeepay">shopeepay</option>
+          <option value="VNpay">VNpay</option>
+          <option value="Khác">Khác</option>
+        </select>
+      </label>
+    </div>
+
+    <div style="display: flex; justify-content: space-between;">
+      <button type="submit">Gửi</button>
+      <button type="button" id="resetBtn">Reset</button>
+    </div>
+  </form>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <script>
+    // Định dạng số tiền
+    (function($) {
+      $(function() {
+        var $input = $("#amount");
+
+        $input.on("keyup", function(event) {
+          var selection = window.getSelection().toString();
+          if (selection !== '') return;
+
+          if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+          var input = $(this).val().replace(/[\D\s\._\-]+/g, "");
+          input = input ? parseInt(input, 10) : 0;
+
+          $(this).val(function() {
+            return (input === 0) ? "" : input.toLocaleString("vi-VN");
+          });
+        });
+      });
+    })(jQuery);
+
+    const form = document.getElementById("moneyForm");
+    const statusField = document.getElementById("status");
+    const transferCheckbox = document.getElementById("transfer");
+    const transferWrapper = document.getElementById("transferWrapper");
+    const transferFundWrapper = document.getElementById("transferFundWrapper");
+    const loading = document.getElementById("loading");
+
+    statusField.addEventListener("change", () => {
+      if (statusField.value === "OUT") {
+        transferWrapper.classList.remove("hidden");
+      } else {
+        transferWrapper.classList.add("hidden");
+        transferFundWrapper.classList.add("hidden");
+        transferCheckbox.checked = false;
+      }
+    });
+
+    transferCheckbox.addEventListener("change", () => {
+      transferFundWrapper.classList.toggle("hidden", !transferCheckbox.checked);
+      if (transferCheckbox.checked) {
+        const transferFund = document.getElementById("transferFund").value;
+        document.getElementById("reason").value = `Chuyển tiền đến quỹ ${transferFund}`;
+      }
+    });
+
+    document.getElementById("transferFund").addEventListener("change", () => {
+      if (transferCheckbox.checked) {
+        const transferFund = document.getElementById("transferFund").value;
+        document.getElementById("reason").value = `Chuyển tiền đến quỹ ${transferFund}`;
+      }
+    });
+
+    function showPopup(message, isError = false) {
+      const popup = document.getElementById("popup");
+      const msg = document.getElementById("popupMsg");
+      msg.innerText = message;
+      popup.classList.toggle("error", isError);
+      popup.style.display = "block";
+      setTimeout(hidePopup, 3000);
+    }
+
+    function hidePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      loading.style.display = "flex";
+
+      const status = statusField.value;
+      const fund = document.getElementById("fund").value;
+      const amountRaw = document.getElementById("amount").value.replace(/[\D\s\._\-]+/g, "");
+      const amount = parseFloat(amountRaw);
+      const date = document.getElementById("date").value || new Date().toISOString().split("T")[0];
+      const reason = document.getElementById("reason").value;
+      const isTransfer = transferCheckbox.checked;
+      const transferFund = document.getElementById("transferFund").value;
+
+      const entries = [
+        { status, fund, amount, date, reason }
+      ];
+
+      let message = `${fund} - ${status} - ${amount.toLocaleString("vi-VN")}đ`;
+
+      if (isTransfer && status === "OUT") {
+        entries.push({
+          status: "IN",
+          fund: transferFund,
+          amount,
+          date,
+          reason: `Nhận tiền từ quỹ ${fund}`
+        });
+        message += ` → ${transferFund}`;
+      }
+
+      try {
+        for (const entry of entries) {
+          await fetch("https://script.google.com/macros/s/AKfycbxzh9QUJzNJL9HlSi0qbNOTpGUkOQF5Dx_IffBrf28pZsfR6ojTM1iiuE338sps1ec6oA/exec", {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(entry),
+          });
+        }
+        showPopup("✅ Đã gửi thành công: " + message);
+      } catch (error) {
+        showPopup("❌ Gửi thất bại!", true);
+      } finally {
+        loading.style.display = "none";
+      }
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      form.reset();
+      transferWrapper.classList.add("hidden");
+      transferFundWrapper.classList.add("hidden");
+    });
+  </script>
+</body>
+</html>
