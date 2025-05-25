@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quản Lý Tiền</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       max-width: 500px;
       margin: 40px auto;
       padding: 20px;
@@ -40,7 +43,7 @@
     button {
       margin-top: 20px;
       padding: 12px;
-      width: 48%;
+      width: 100%;
       background-color: #27ae60;
       color: white;
       border: none;
@@ -168,10 +171,14 @@
       </label>
     </div>
 
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between; ">
       <button type="submit">Gửi</button>
-      <button type="button" id="resetBtn">Reset</button>
     </div>
+<div style="display: flex; justify-content: flex-end; width: 20%;margin-left: auto; margin-right: 0;">
+  <button style="" type="button" id="resetBtn">Reset</button>
+</div>
+
+
   </form>
 
   <!-- jQuery -->
@@ -193,7 +200,7 @@
           input = input ? parseInt(input, 10) : 0;
 
           $(this).val(function() {
-            return (input === 0) ? "" : input.toLocaleString("vi-VN");
+            return (input === 0) ? "" : input.toLocaleString("VI");
           });
         });
       });
