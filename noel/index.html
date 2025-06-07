@@ -86,10 +86,8 @@
       background-color: #495057;
     }
 
-    .copy-btn {
-      margin-left: 10px;
+    .copy-btn, .connect-btn, .settings-btn {
       padding: 8px 12px;
-      background-color: #28a745;
       border: none;
       border-radius: 4px;
       color: white;
@@ -97,8 +95,40 @@
       font-size: 14px;
     }
 
+    .copy-btn {
+      background-color: #28a745;
+    }
+
     .copy-btn:hover {
       background-color: #218838;
+    }
+
+    .button-container {
+      margin-top: 10px;
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+    }
+
+    .connect-btn {
+      background-color: #ff6f00;
+    }
+
+    .connect-btn:hover {
+      background-color: #e65c00;
+    }
+
+    .settings-btn {
+      background-color: #6f42c1;
+    }
+
+    .settings-btn:hover {
+      background-color: #5a32a3;
+    }
+
+    #tingbox-message {
+      color: blue;
+      margin-top: 5px;
     }
 
     @media (max-width: 480px) {
@@ -106,7 +136,7 @@
         font-size: 14px;
         padding: 10px 16px;
       }
-      .copy-btn {
+      .copy-btn, .connect-btn, .settings-btn {
         font-size: 12px;
         padding: 6px 10px;
       }
@@ -134,6 +164,7 @@
     const uploadLabel = document.getElementById('upload-label');
     const resetBtn = document.getElementById('reset-btn');
     let html5QrCode;
+    let tingboxConnectCount = 0;
 
     function showResetHideOthers() {
         resetBtn.style.display = 'block';
@@ -142,12 +173,10 @@
     }
 
     function parseWifiQR(qrCodeMessage) {
-        // Regex linh hoạt hơn, hỗ trợ cả thứ tự S:T:P và T:S:P
         const wifiRegex = /^WIFI:.*S:([^;]+);.*P:([^;]*);/;
         const match = qrCodeMessage.match(wifiRegex);
         if (match) {
             const [, ssid, password] = match;
-            // Lấy type nếu có, mặc định là "Không xác định"
             const typeMatch = qrCodeMessage.match(/T:([^;]*);/);
             const type = typeMatch ? typeMatch[1] : "Không xác định";
             return { ssid, type, password };
@@ -155,22 +184,65 @@
         return null;
     }
 
+    function openWifiSettings() {
+        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+        if (isMobile) {
+            if (/Android/i.test(navigator.userAgent)) {
+                window.location.href = 'intent://#Intent;action=android.settings.WIFI_SETTINGS;end';
+            } else if (/iPhone|iPad/i.test(navigator.userAgent)) {
+                window.location.href = 'App-Prefs:root=WIFI';
+            }
+        } else {
+            alert("Vui lòng mở cài đặt Wi-Fi thủ công trên thiết bị của bạn.");
+        }
+    }
+
+    function connectToTingbox() {
+        tingboxConnectCount++;
+        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+        if (isMobile) {
+            if (/Android/i.test(navigator.userAgent)) {
+                window.location.href = 'intent://#Intent;action=android.settings.WIFI_SETTINGS;end';
+            } else if (/iPhone|iPad/i.test(navigator.userAgent)) {
+                window.location.href = 'App-Prefs:root=WIFI';
+            }
+        } else {
+            alert("Vui lòng mở cài đặt Wi-Fi và kết nối thủ công đến 'Tingbox' (không có mật khẩu).");
+        }
+        // Cập nhật hoặc thêm thông báo số lần kết nối
+        let messageDiv = document.getElementById('tingbox-message');
+        if (!messageDiv) {
+            messageDiv = document.createElement('div');
+            messageDiv.id = 'tingbox-message';
+            resultDiv.appendChild(messageDiv);
+        }
+        messageDiv.innerHTML = `Đang cố gắng kết nối đến Wi-Fi 'Tingbox' lần ${tingboxConnectCount}. Nếu không tự động, hãy vào cài đặt Wi-Fi và chọn 'Tingbox'.`;
+    }
+
     function displayResult(qrCodeMessage) {
         const wifiData = parseWifiQR(qrCodeMessage);
+        let resultHtml = '';
         if (wifiData) {
-            resultDiv.innerHTML = `
+            resultHtml = `
                 ✅ Wi-Fi:<br>
                 <strong>Tên Wi-Fi (SSID):</strong> ${wifiData.ssid}<br>
                 <strong>Loại bảo mật:</strong> ${wifiData.type}<br>
                 <strong>Mật khẩu:</strong> ${wifiData.password} 
-                <button class="copy-btn" onclick="copyToClipboard('${wifiData.password}')">Sao chép</button>
+                <button class="copy-btn" onclick="copyToClipboard('${wifiData.password}')">Sao chép</button><br>
             `;
         } else {
-            resultDiv.innerHTML = `
+            resultHtml = `
                 ✅ Nội dung: ${qrCodeMessage}<br>
-                <span style="color: red;">Đây không phải QR chứa Wi-Fi</span>
+                <span style="color: red;">Đây không phải QR chứa Wi-Fi</span><br>
             `;
         }
+        resultHtml += `
+            <div class="button-container">
+                <button class="connect-btn" onclick="connectToTingbox()">Kết nối Tingbox</button>
+                <button class="settings-btn" onclick="openWifiSettings()">Cài đặt</button>
+            </div>
+        `;
+        resultDiv.innerHTML = resultHtml;
         showResetHideOthers();
     }
 
