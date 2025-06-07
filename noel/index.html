@@ -1,280 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ở đây có gì đó!</title>
-    <style>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-      
-    .call-button {
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background-color: #4CAF50;
-      border: none;
-      border-radius: 50%;
-      color: white;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đọc mã QR</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #333;
       font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    button, label {
+      width: 100%;
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .call-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    }
-    .call-button:active {
-      transform: scale(1);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+      text-align: center;
+      box-sizing: border-box;
     }
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('./IMG/background.jpg');
-            background-repeat: repeat;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    label {
+      display: inline-block;
+      text-align: center;
+    }
 
-        #authOverlay {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-        }
+    button:hover, label:hover {
+      background-color: #0056b3;
+    }
 
-        #authPopup {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            border: 2px solid #ff3333;
-            width: 90%;
-            max-width: 400px;
-        }
+    #preview {
+      margin-top: 10px;
+      max-width: 300px;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      display: none;
+    }
 
-        #authPopup p {
-            color: #ff3333;
-            font-weight: bold;
-        }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+      word-wrap: break-word;
+      text-align: center;
+      max-width: 320px;
+    }
 
-        #authPopup input {
-            width: 50%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    input[type="file"] {
+      display: none;
+    }
 
-        #authPopup button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
+    .reset-btn {
+      background-color: #6c757d;
+      display: none; /* Ẩn nút Reset ban đầu */
+    }
 
-        #authPopup button:hover {
-            background-color: #45a049;
-        }
+    .reset-btn:hover {
+      background-color: #495057;
+    }
 
-        .button {
-            padding: 15px 30px;
-            font-size: 16px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            position: relative;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
+    .copy-btn {
+      margin-left: 10px;
+      padding: 8px 12px;
+      background-color: #28a745;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-        #giftButton {
-            background-color: #FFD700;
-            color: #000;
-        }
+    .copy-btn:hover {
+      background-color: #218838;
+    }
 
-        #moneyButton {
-            background-color: #FF6347;
-            color: white;
-            position: relative;
-        }
-
-        #moneyButton:hover {
-            background-color: #FF4500;
-        }
-
-        #moneyButton:active {
-            background-color: #FF4500;
-        }
-
-        #popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            padding: 20px;
-            background: #fff;
-            text-align: center;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 400px;
-        }
-
-        #popup img {
-            margin-top: 10px;
-            width: 120px;
-            height: 80px;
-            border-radius: 10px;
-        }
-
-        #popup p {
-            color: #ff3333;
-            font-weight: bold;
-        }
-
-        #popup button {
-            margin-top: 20px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #d32f2f;
-            color: white;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        #popup button:hover {
-            background-color: #b71c1c;
-        }
-        #button2 {
-            margin-top: 20px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: blue;
-            color: white;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        #button2:hover {
-            background-color: #b71c1c;
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-
-       
-
-        .fade-out {
-            animation: fadeOut 1s forwards;
-        }
-
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-    </style>
+    @media (max-width: 480px) {
+      button, label {
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+      .copy-btn {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div style=" position: fixed; font-size: 30px; color: white; font-weight: bold;
-text-shadow: 2px 2px 2px;
-     top: 30%; width: 100%; text-align: center;"><span> W </span><span style="margin-left: -6px;color: yellow;">HERE?</span></div> <br>
-      <img style=" position: fixed; right: 0; bottom: 0; width: 150px;" src="./IMG/nguoi tuyet.png" alt="Fixed Image">
-    <img style=" position: fixed; left: 0; bottom: 0; width: 300px;" src="./IMG/cay thong.png" alt="Fixed Image">
-    <div id="authOverlay">
-        <div id="authPopup">
-            <p>Trung bình cộng của 3 số cuối căn cước các thành viên PosApp HN trong đó những người có gia đình nhân hệ số 2</p>
-            <input type="text" id="passwordInput" placeholder="KQ là...">
-            <button onclick="checkPassword()">Xác nhận</button>
-        </div>
-    </div>
 
-    <div id="mobileWarning" style="display: none;">
-        <p>Trang web không hỗ trợ thiết bị có màn hình nhỏ. Vui lòng sử dụng máy tính để truy cập.</p>
-    </div>
+  <h1>🔍 Trình đọc mã QR</h1>
 
-    <div id="overlay" class="overlay"></div>
+  <div class="button-group">
+    <button id="camera-btn" onclick="startCameraScan()">📷 Quét bằng Camera</button>
+    <label id="upload-label" for="upload">🖼️ Tải ảnh lên</label>
+    <input type="file" id="upload" accept="image/*" onchange="scanImage(this)" />
+    <button id="reset-btn" class="reset-btn" onclick="resetAll()">🔄 Reset</button>
+  </div>
 
-    <div id="popup">
-        <p>Đừng buồn, đôi khi mọi việc không như ý mình muốn, hãy chấp nhận với điều mình đang có.</p>
-      
-        <a href="tel:*100*412974835520024#" class="call-button" style="text-decoration: none;">
-            <p>Chúc mừng bạn đã trúng thẻ điện thoại 500.000VND Viettel</p>
-        </a>
-            
-        <img src="./IMG/qua.jpg" alt="Gift">
-        <p>Và món quà này nằm phía dưới những đám mây cạnh cây thông noel</p>
+  <img id="preview" alt="Ảnh đã chọn" />
+  <div id="result">📄 Nội dung QR sẽ hiển thị tại đây...</div>
 
-        <button onclick="closePopup()">CÓ</button>
-        <button style="background-color: blue;" onclick="closePopup()">KÓ</button>
-    </div>
+  <script>
+    const resultDiv = document.getElementById('result');
+    const previewImg = document.getElementById('preview');
+    const cameraBtn = document.getElementById('camera-btn');
+    const uploadLabel = document.getElementById('upload-label');
+    const resetBtn = document.getElementById('reset-btn');
+    let html5QrCode;
 
-    <div>
-        <button id="giftButton" class="button" onclick="showPopup()">Phần quà</button>
-        <button id="moneyButton" class="button" onclick="fadeOutButton(this)">500k</button>
-    </div>
+    function showResetHideOthers() {
+        resetBtn.style.display = 'block';
+        cameraBtn.style.display = 'none';
+        uploadLabel.style.display = 'none';
+    }
 
-    <script>
-        function checkPassword() {
-            const password = document.getElementById('passwordInput').value;
-            if (password === '452.3') { // Change this password as needed
-                document.getElementById('authOverlay').style.display = 'none';
-            } else {
-                alert('Mật khẩu không đúng!');
+    function parseWifiQR(qrCodeMessage) {
+        // Regex linh hoạt hơn, hỗ trợ cả thứ tự S:T:P và T:S:P
+        const wifiRegex = /^WIFI:.*S:([^;]+);.*P:([^;]*);/;
+        const match = qrCodeMessage.match(wifiRegex);
+        if (match) {
+            const [, ssid, password] = match;
+            // Lấy type nếu có, mặc định là "Không xác định"
+            const typeMatch = qrCodeMessage.match(/T:([^;]*);/);
+            const type = typeMatch ? typeMatch[1] : "Không xác định";
+            return { ssid, type, password };
+        }
+        return null;
+    }
+
+    function displayResult(qrCodeMessage) {
+        const wifiData = parseWifiQR(qrCodeMessage);
+        if (wifiData) {
+            resultDiv.innerHTML = `
+                ✅ Wi-Fi:<br>
+                <strong>Tên Wi-Fi (SSID):</strong> ${wifiData.ssid}<br>
+                <strong>Loại bảo mật:</strong> ${wifiData.type}<br>
+                <strong>Mật khẩu:</strong> ${wifiData.password} 
+                <button class="copy-btn" onclick="copyToClipboard('${wifiData.password}')">Sao chép</button>
+            `;
+        } else {
+            resultDiv.innerHTML = `
+                ✅ Nội dung: ${qrCodeMessage}<br>
+                <span style="color: red;">Đây không phải QR chứa Wi-Fi</span>
+            `;
+        }
+        showResetHideOthers();
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Đã sao chép mật khẩu: " + text);
+        }).catch(err => {
+            console.error("Lỗi sao chép:", err);
+            alert("Không thể sao chép mật khẩu!");
+        });
+    }
+
+    async function resetReader() {
+        try {
+            if (html5QrCode) {
+                await html5QrCode.stop();
+                await html5QrCode.clear();
+                html5QrCode = null;
             }
+        } catch (err) {
+            console.error("Lỗi khi reset reader:", err);
         }
+        html5QrCode = new Html5Qrcode("preview");
+    }
 
-        function showPopup() {
-            document.getElementById('popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
+    function resetAll() {
+        location.reload();
+    }
 
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
+    async function startCameraScan() {
+        try {
+            await resetReader();
+            const cameras = await Html5Qrcode.getCameras();
+            if (cameras && cameras.length) {
+                await html5QrCode.start(
+                    { facingMode: "environment" },
+                    { fps: 10, qrbox: 250 },
+                    (qrCodeMessage) => {
+                        html5QrCode.stop().catch(err => console.error("Lỗi khi dừng camera:", err));
+                        displayResult(qrCodeMessage);
+                    },
+                    (error) => {
+                        console.warn("Lỗi quét:", error);
+                    }
+                );
+            } else {
+                alert("Không tìm thấy camera!");
+            }
+        } catch (err) {
+            alert("Không thể truy cập camera: " + err);
+            console.error("Lỗi khởi động camera:", err);
         }
+    }
 
-        function fadeOutButton(button) {
-            button.classList.add('fade-out');
-            button.addEventListener('animationend', () => {
-                button.style.display = 'none';
-            });
+    async function scanImage(input) {
+        try {
+            await resetReader();
+            const file = input.files[0];
+            if (!file) return;
+
+            const fileReader = new FileReader();
+            fileReader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+            };
+            fileReader.readAsDataURL(file);
+
+            const qr = new Html5Qrcode("preview");
+            qr.scanFile(file, true)
+                .then(qrCodeMessage => {
+                    displayResult(qrCodeMessage);
+                })
+                .catch(err => {
+                    resultDiv.innerText = "❌ Không tìm thấy mã QR trong ảnh.";
+                    console.error("Lỗi quét ảnh:", err);
+                    showResetHideOthers();
+                });
+        } catch (err) {
+            resultDiv.innerText = "❌ Lỗi khi xử lý ảnh.";
+            console.error("Lỗi xử lý ảnh:", err);
+            showResetHideOthers();
         }
-    </script>
+    }
+  </script>
+
 </body>
 </html>
