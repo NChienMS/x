@@ -2,24 +2,40 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quét mã QR Code Online</title>
   <script src="https://unpkg.com/html5-qrcode"></script>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin: 30px;
+      padding: 15px;
+      background-color: #f5f5f5;
+      font-size: 16px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
     }
     .tabs {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       border-bottom: 2px solid #ccc;
+      flex-wrap: wrap;
     }
     .tab {
-      margin: 0 20px;
-      padding-bottom: 5px;
+      flex: 1;
+      padding: 10px;
       cursor: pointer;
+      font-size: 0.9rem;
+      min-width: 120px;
+      touch-action: manipulation;
     }
     .tab.active {
       color: green;
@@ -28,26 +44,65 @@
     }
     #qr-reader {
       display: none;
-      margin: 20px auto;
-      width: 300px;
+      margin: 15px auto;
+      width: 90vw;
+      max-width: 300px;
+      aspect-ratio: 1;
+      border: 2px solid #ddd;
     }
     #result {
-      margin-top: 20px;
-      font-size: 18px;
+      margin-top: 15px;
+      font-size: 1rem;
       color: #333;
       font-weight: bold;
+      word-break: break-all;
+      padding: 0 10px;
     }
     #upload-container, #camera-btn {
       display: none;
-      margin-top: 20px;
+      margin-top: 15px;
     }
     .btn {
-      padding: 10px 20px;
+      padding: 12px 24px;
       background-color: green;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 1rem;
+      min-width: 150px;
+      touch-action: manipulation;
+    }
+    input[type="file"] {
+      font-size: 0.9rem;
+      padding: 10px;
+      width: 90%;
+      max-width: 300px;
+    }
+
+    /* Media queries cho màn hình nhỏ */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      h2 {
+        font-size: 1.2rem;
+      }
+      .tab {
+        font-size: 0.8rem;
+        padding: 8px;
+      }
+      #qr-reader {
+        width: 85vw;
+        max-width: 280px;
+      }
+      .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      #result {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -56,8 +111,8 @@
   <h2>Quét mã QR Code Online</h2>
 
   <div class="tabs">
-    <div id="tab-camera" class="tab active">📷 Máy ảnh quét mã QR</div>
-    <div id="tab-upload" class="tab">🖼️ Tải lên hình ảnh mã QR</div>
+    <div id="tab-camera" class="tab active">📷 Camera</div>
+    <div id="tab-upload" class="tab">🖼️ Tải ảnh</div>
   </div>
 
   <div id="camera-btn">
@@ -114,21 +169,23 @@
         { facingMode: "environment" },
         {
           fps: 10,
-          qrbox: { width: 250, height: 250 }
+          qrbox: { width: 200, height: 200 }
         },
         (decodedText) => {
-          result.innerText = "✅ Nội dung: " + decodedText;
+          result.innerText = "✅ Kết quả: " + decodedText;
           html5QrCode.stop().then(() => html5QrCode.clear());
         },
         (errorMessage) => {
-          // console.log("Lỗi quét: ", errorMessage);
+          result.innerText = "❌ Lỗi: Không quét được mã QR.";
         }
-      );
+      ).catch(err => {
+        result.innerText = "❌ Lỗi: Không thể mở camera.";
+      });
     }
 
     function stopCameraScan() {
       if (html5QrCode) {
-        html5QrCode.stop().then(() => html5QrCode.clear());
+        html5QrCode.stop().then(() => html5QrCode.clear()).catch(() => {});
       }
     }
 
@@ -136,17 +193,17 @@
       if (e.target.files.length === 0) return;
       const file = e.target.files[0];
       const qrCodeScanner = new Html5Qrcode("temp-scan");
+      result.innerText = "⏳ Đang quét...";
       qrCodeScanner.scanFile(file, true)
         .then(decodedText => {
-          result.innerText = "✅ Nội dung: " + decodedText;
+          result.innerText = "✅ Kết quả: " + decodedText;
           qrCodeScanner.clear();
         })
         .catch(err => {
-          result.innerText = "❌ Không đọc được mã QR.";
+          result.innerText = "❌ Lỗi: Không đọc được mã QR.";
         });
     });
 
-    // Mặc định dùng camera tab
     setTab('camera');
   </script>
 
