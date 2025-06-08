@@ -45,10 +45,7 @@
     #qr-reader {
       display: none;
       margin: 15px auto;
-      width: 90vw;
-      max-width: 300px;
-      aspect-ratio: 1;
-      border: 2px solid #ddd;
+      width: 300px;
     }
     #result {
       margin-top: 15px;
@@ -93,8 +90,7 @@
         padding: 8px;
       }
       #qr-reader {
-        width: 85vw;
-        max-width: 280px;
+        width: 280px;
       }
       .btn {
         padding: 10px 20px;
@@ -169,7 +165,7 @@
         { facingMode: "environment" },
         {
           fps: 10,
-          qrbox: { width: 200, height: 200 }
+          qrbox: { width: 250, height: 250 }
         },
         (decodedText) => {
           result.innerText = "✅ Kết quả: " + decodedText;
