@@ -38,9 +38,9 @@
       touch-action: manipulation;
     }
     .tab.active {
-      color: green;
+      color: #6C9E3E;
       font-weight: bold;
-      border-bottom: 2px solid green;
+      border-bottom: 2px solid #6C9E3E;
     }
     #qr-reader {
       display: none;
@@ -61,7 +61,7 @@
     }
     .btn {
       padding: 12px 24px;
-      background-color: green;
+      background-color: #6C9E3E;
       color: white;
       border: none;
       border-radius: 8px;
@@ -69,12 +69,54 @@
       font-size: 1rem;
       min-width: 150px;
       touch-action: manipulation;
+      display: inline-block;
     }
-    input[type="file"] {
+    .btn:hover {
+      background-color: #5A8232;
+    }
+    .copy-btn {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
       font-size: 0.9rem;
-      padding: 10px;
-      width: 90%;
-      max-width: 300px;
+      margin-left: 10px;
+    }
+    .copy-btn:hover {
+      background-color: #0056b3;
+    }
+    .tingbox-btn {
+      padding: 8px 16px;
+      background-color: #6C9E3E;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: block;
+      margin: 10px auto 0;
+    }
+    .tingbox-btn:hover {
+      background-color: #5A8232;
+    }
+    .wifi-info {
+      margin-top: 15px;
+      text-align: left;
+      display: inline-block;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif;
+    }
+    .wifi-info p {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+    #qr-file {
+      display: none;
     }
 
     /* Media queries cho màn hình nhỏ */
@@ -96,8 +138,15 @@
         padding: 10px 20px;
         font-size: 0.9rem;
       }
+      .copy-btn, .tingbox-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
       #result {
         font-size: 0.9rem;
+      }
+      .wifi-info {
+        padding: 10px;
       }
     }
   </style>
@@ -118,6 +167,7 @@
 
   <div id="upload-container">
     <input type="file" id="qr-file" accept="image/*" />
+    <label for="qr-file" class="btn">🖼️ Chọn ảnh</label>
   </div>
 
   <div id="result"></div>
@@ -135,6 +185,94 @@
     const cameraBtn = document.getElementById('camera-btn');
 
     let html5QrCode;
+
+    function parseWiFiQR(text) {
+      if (!text.startsWith('WIFI:')) {
+        return null;
+      }
+
+      const wifiData = { ssid: '', password: '' };
+      let currentField = '';
+      let currentValue = '';
+      let inQuotes = false;
+      let escaped = false;
+
+      text = text.substring(5).replace(/;;$/, '');
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+
+        if (escaped) {
+          currentValue += char;
+          escaped = false;
+          continue;
+        }
+
+        if (char === '\\') {
+          escaped = true;
+          continue;
+        }
+
+        if (char === '"') {
+          inQuotes = !inQuotes;
+          continue;
+        }
+
+        if (char === ':' && !inQuotes && !currentField) {
+          currentField = currentValue;
+          currentValue = '';
+          continue;
+        }
+
+        if (char === ';' && !inQuotes) {
+          if (currentField === 'S') {
+            wifiData.ssid = currentValue;
+          } else if (currentField === 'P') {
+            wifiData.password = currentValue;
+          }
+          currentField = '';
+          currentValue = '';
+          continue;
+        }
+
+        currentValue += char;
+      }
+
+      if (currentField && currentValue) {
+        if (currentField === 'S') {
+          wifiData.ssid = currentValue;
+        } else if (currentField === 'P') {
+          wifiData.password = currentValue;
+        }
+      }
+
+      return wifiData.ssid ? wifiData : null;
+    }
+
+    function displayResult(decodedText) {
+      const wifiData = parseWiFiQR(decodedText);
+      if (wifiData) {
+        result.innerHTML = `
+          <div class="wifi-info">
+            <p><strong>Tên mạng:</strong> ${wifiData.ssid}</p>
+            <p><strong>Mật khẩu:</strong> ${wifiData.password || 'Không có'}
+              ${wifiData.password ? `<button class="copy-btn" onclick="copyToClipboard('${wifiData.password.replace(/'/g, "\\'")}')">Sao chép</button>` : ''}
+            </p>
+            <button class="tingbox-btn" onclick="window.open('http://192.168.1.1', '_blank')">Mở trang tingbox</button>
+          </div>
+        `;
+      } else {
+        result.innerText = `✅ Kết quả: ${decodedText}`;
+      }
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Đã sao chép mật khẩu!');
+      }).catch(() => {
+        alert('Lỗi khi sao chép mật khẩu.');
+      });
+    }
 
     function setTab(active) {
       if (active === 'camera') {
@@ -168,7 +306,7 @@
           qrbox: { width: 250, height: 250 }
         },
         (decodedText) => {
-          result.innerText = "✅ Kết quả: " + decodedText;
+          displayResult(decodedText);
           html5QrCode.stop().then(() => html5QrCode.clear());
         },
         (errorMessage) => {
@@ -192,7 +330,7 @@
       result.innerText = "⏳ Đang quét...";
       qrCodeScanner.scanFile(file, true)
         .then(decodedText => {
-          result.innerText = "✅ Kết quả: " + decodedText;
+          displayResult(decodedText);
           qrCodeScanner.clear();
         })
         .catch(err => {
