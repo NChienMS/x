@@ -1,123 +1,154 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Scanner</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script type="module">
-    import {
-      BrowserQRCodeReader
-    } from "https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.1/+esm";
-
-    const video = document.getElementById('video');
-    const result = document.getElementById('result');
-    const fileInput = document.getElementById('file-input');
-    const cameraView = document.getElementById('camera-view');
-    const uploadView = document.getElementById('upload-view');
-
-    const btnCamera = document.getElementById('btn-camera');
-    const btnUpload = document.getElementById('btn-upload');
-
-    const codeReader = new BrowserQRCodeReader();
-    let currentStream = null;
-
-    // Mở camera
-    btnCamera.onclick = async () => {
-      btnCamera.classList.replace("bg-gray-300", "bg-green-600");
-      btnCamera.classList.replace("text-black", "text-white");
-      btnUpload.classList.replace("bg-green-600", "bg-gray-300");
-      btnUpload.classList.replace("text-white", "text-black");
-
-      uploadView.classList.add("hidden");
-      cameraView.classList.remove("hidden");
-      result.innerText = '';
-
-      try {
-        const videoInputDevices = await BrowserQRCodeReader.listVideoInputDevices();
-        const selectedDeviceId = videoInputDevices[0]?.deviceId;
-
-        if (!selectedDeviceId) {
-          result.innerText = "Không tìm thấy camera nào.";
-          return;
-        }
-
-        if (currentStream) {
-          currentStream.getTracks().forEach(track => track.stop());
-        }
-
-        codeReader.decodeFromVideoDevice(selectedDeviceId, video, (resultText, _) => {
-          if (resultText) {
-            result.innerText = "✅ Nội dung: " + resultText;
-            codeReader.reset();
-          }
-        });
-      } catch (err) {
-        result.innerText = "Lỗi: " + err;
-      }
-    };
-
-    // Tải ảnh
-    btnUpload.onclick = () => {
-      btnUpload.classList.replace("bg-gray-300", "bg-green-600");
-      btnUpload.classList.replace("text-black", "text-white");
-      btnCamera.classList.replace("bg-green-600", "bg-gray-300");
-      btnCamera.classList.replace("text-white", "text-black");
-
-      cameraView.classList.add("hidden");
-      uploadView.classList.remove("hidden");
-      result.innerText = '';
-
-      if (currentStream) {
-        currentStream.getTracks().forEach(track => track.stop());
-        currentStream = null;
-      }
-    };
-
-    // Đọc ảnh
-    fileInput.onchange = async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const img = await createImageBitmap(file);
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-
-      const codeReader = new BrowserQRCodeReader();
-      const resultText = await codeReader.decodeFromCanvas(canvas);
-
-      if (resultText?.text) {
-        result.innerText = "✅ Nội dung: " + resultText.text;
-      } else {
-        result.innerText = "❌ Không đọc được mã QR.";
-      }
-    };
-  </script>
+  <meta charset="UTF-8" />
+  <title>Quét mã QR Code Online</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 30px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ccc;
+    }
+    .tab {
+      margin: 0 20px;
+      padding-bottom: 5px;
+      cursor: pointer;
+    }
+    .tab.active {
+      color: green;
+      font-weight: bold;
+      border-bottom: 2px solid green;
+    }
+    #qr-reader {
+      display: none;
+      margin: 20px auto;
+      width: 300px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      font-weight: bold;
+    }
+    #upload-container, #camera-btn {
+      display: none;
+      margin-top: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-center p-4">
+<body>
 
-  <h1 class="text-2xl font-bold mb-4">📷 Quét mã QR Code Online</h1>
+  <h2>Quét mã QR Code Online</h2>
 
-  <div class="flex justify-center mb-4">
-    <button id="btn-camera" class="px-4 py-2 mx-2 bg-green-600 text-white rounded">Máy ảnh</button>
-    <button id="btn-upload" class="px-4 py-2 mx-2 bg-gray-300 text-black rounded">Tải ảnh</button>
+  <div class="tabs">
+    <div id="tab-camera" class="tab active">📷 Máy ảnh quét mã QR</div>
+    <div id="tab-upload" class="tab">🖼️ Tải lên hình ảnh mã QR</div>
   </div>
 
-  <!-- Camera View -->
-  <div id="camera-view" class="flex justify-center hidden">
-    <video id="video" class="rounded shadow-lg" style="width: 300px; height: auto;"></video>
+  <div id="camera-btn">
+    <button class="btn" onclick="startCameraScan()">🎥 Mở Camera</button>
+  </div>
+  <div id="qr-reader"></div>
+
+  <div id="upload-container">
+    <input type="file" id="qr-file" accept="image/*" />
   </div>
 
-  <!-- Upload View -->
-  <div id="upload-view" class="hidden">
-    <input type="file" id="file-input" accept="image/*" class="block mx-auto mt-4" />
-  </div>
+  <div id="result"></div>
 
-  <!-- Result -->
-  <div id="result" class="mt-6 text-lg font-semibold text-blue-700"></div>
+  <!-- div ẩn dùng để scan ảnh -->
+  <div id="temp-scan" style="display: none;"></div>
+
+  <script>
+    const tabCamera = document.getElementById('tab-camera');
+    const tabUpload = document.getElementById('tab-upload');
+    const qrReader = document.getElementById('qr-reader');
+    const uploadContainer = document.getElementById('upload-container');
+    const result = document.getElementById('result');
+    const fileInput = document.getElementById('qr-file');
+    const cameraBtn = document.getElementById('camera-btn');
+
+    let html5QrCode;
+
+    function setTab(active) {
+      if (active === 'camera') {
+        tabCamera.classList.add('active');
+        tabUpload.classList.remove('active');
+        uploadContainer.style.display = 'none';
+        qrReader.style.display = 'none';
+        cameraBtn.style.display = 'block';
+        stopCameraScan();
+      } else {
+        tabUpload.classList.add('active');
+        tabCamera.classList.remove('active');
+        qrReader.style.display = 'none';
+        cameraBtn.style.display = 'none';
+        uploadContainer.style.display = 'block';
+        stopCameraScan();
+      }
+      result.innerText = '';
+    }
+
+    tabCamera.onclick = () => setTab('camera');
+    tabUpload.onclick = () => setTab('upload');
+
+    function startCameraScan() {
+      qrReader.style.display = 'block';
+      html5QrCode = new Html5Qrcode("qr-reader");
+      html5QrCode.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: { width: 250, height: 250 }
+        },
+        (decodedText) => {
+          result.innerText = "✅ Nội dung: " + decodedText;
+          html5QrCode.stop().then(() => html5QrCode.clear());
+        },
+        (errorMessage) => {
+          // console.log("Lỗi quét: ", errorMessage);
+        }
+      );
+    }
+
+    function stopCameraScan() {
+      if (html5QrCode) {
+        html5QrCode.stop().then(() => html5QrCode.clear());
+      }
+    }
+
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files.length === 0) return;
+      const file = e.target.files[0];
+      const qrCodeScanner = new Html5Qrcode("temp-scan");
+      qrCodeScanner.scanFile(file, true)
+        .then(decodedText => {
+          result.innerText = "✅ Nội dung: " + decodedText;
+          qrCodeScanner.clear();
+        })
+        .catch(err => {
+          result.innerText = "❌ Không đọc được mã QR.";
+        });
+    });
+
+    // Mặc định dùng camera tab
+    setTab('camera');
+  </script>
 
 </body>
 </html>
