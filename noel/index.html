@@ -1,332 +1,123 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đọc mã QR</title>
-  <script src="https://unpkg.com/html5-qrcode"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Scanner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    import {
+      BrowserQRCodeReader
+    } from "https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.1/+esm";
 
-    h1 {
-      color: #333;
-      font-size: 24px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+    const video = document.getElementById('video');
+    const result = document.getElementById('result');
+    const fileInput = document.getElementById('file-input');
+    const cameraView = document.getElementById('camera-view');
+    const uploadView = document.getElementById('upload-view');
 
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
-      width: 100%;
-      max-width: 320px;
-    }
+    const btnCamera = document.getElementById('btn-camera');
+    const btnUpload = document.getElementById('btn-upload');
 
-    button, label {
-      width: 100%;
-      padding: 12px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      text-align: center;
-      box-sizing: border-box;
-    }
+    const codeReader = new BrowserQRCodeReader();
+    let currentStream = null;
 
-    label {
-      display: inline-block;
-      text-align: center;
-    }
+    // Mở camera
+    btnCamera.onclick = async () => {
+      btnCamera.classList.replace("bg-gray-300", "bg-green-600");
+      btnCamera.classList.replace("text-black", "text-white");
+      btnUpload.classList.replace("bg-green-600", "bg-gray-300");
+      btnUpload.classList.replace("text-white", "text-black");
 
-    button:hover, label:hover {
-      background-color: #0056b3;
-    }
+      uploadView.classList.add("hidden");
+      cameraView.classList.remove("hidden");
+      result.innerText = '';
 
-    #preview {
-      margin-top: 10px;
-      max-width: 300px;
-      max-height: 300px;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      display: none;
-    }
+      try {
+        const videoInputDevices = await BrowserQRCodeReader.listVideoInputDevices();
+        const selectedDeviceId = videoInputDevices[0]?.deviceId;
 
-    #result {
-      margin-top: 20px;
-      font-size: 18px;
-      color: green;
-      word-wrap: break-word;
-      text-align: center;
-      max-width: 320px;
-    }
+        if (!selectedDeviceId) {
+          result.innerText = "Không tìm thấy camera nào.";
+          return;
+        }
 
-    input[type="file"] {
-      display: none;
-    }
+        if (currentStream) {
+          currentStream.getTracks().forEach(track => track.stop());
+        }
 
-    .reset-btn {
-      background-color: #6c757d;
-      display: none; /* Ẩn nút Reset ban đầu */
-    }
-
-    .reset-btn:hover {
-      background-color: #495057;
-    }
-
-    .copy-btn, .connect-btn, .settings-btn {
-      padding: 8px 12px;
-      border: none;
-      border-radius: 4px;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .copy-btn {
-      background-color: #28a745;
-    }
-
-    .copy-btn:hover {
-      background-color: #218838;
-    }
-
-    .button-container {
-      margin-top: 10px;
-      display: flex;
-      gap: 5px;
-      justify-content: center;
-    }
-
-    .connect-btn {
-      background-color: #ff6f00;
-    }
-
-    .connect-btn:hover {
-      background-color: #e65c00;
-    }
-
-    .settings-btn {
-      background-color: #6f42c1;
-    }
-
-    .settings-btn:hover {
-      background-color: #5a32a3;
-    }
-
-    #tingbox-message {
-      color: blue;
-      margin-top: 5px;
-    }
-
-    @media (max-width: 480px) {
-      button, label {
-        font-size: 14px;
-        padding: 10px 16px;
+        codeReader.decodeFromVideoDevice(selectedDeviceId, video, (resultText, _) => {
+          if (resultText) {
+            result.innerText = "✅ Nội dung: " + resultText;
+            codeReader.reset();
+          }
+        });
+      } catch (err) {
+        result.innerText = "Lỗi: " + err;
       }
-      .copy-btn, .connect-btn, .settings-btn {
-        font-size: 12px;
-        padding: 6px 10px;
+    };
+
+    // Tải ảnh
+    btnUpload.onclick = () => {
+      btnUpload.classList.replace("bg-gray-300", "bg-green-600");
+      btnUpload.classList.replace("text-black", "text-white");
+      btnCamera.classList.replace("bg-green-600", "bg-gray-300");
+      btnCamera.classList.replace("text-white", "text-black");
+
+      cameraView.classList.add("hidden");
+      uploadView.classList.remove("hidden");
+      result.innerText = '';
+
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+        currentStream = null;
       }
-    }
-  </style>
+    };
+
+    // Đọc ảnh
+    fileInput.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const img = await createImageBitmap(file);
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+
+      const codeReader = new BrowserQRCodeReader();
+      const resultText = await codeReader.decodeFromCanvas(canvas);
+
+      if (resultText?.text) {
+        result.innerText = "✅ Nội dung: " + resultText.text;
+      } else {
+        result.innerText = "❌ Không đọc được mã QR.";
+      }
+    };
+  </script>
 </head>
-<body>
+<body class="bg-gray-100 text-center p-4">
 
-  <h1>🔍 Trình đọc mã QR</h1>
+  <h1 class="text-2xl font-bold mb-4">📷 Quét mã QR Code Online</h1>
 
-  <div class="button-group">
-    <button id="camera-btn" onclick="startCameraScan()">📷 Quét bằng Camera</button>
-    <label id="upload-label" for="upload">🖼️ Tải ảnh lên</label>
-    <input type="file" id="upload" accept="image/*" onchange="scanImage(this)" />
-    <button id="reset-btn" class="reset-btn" onclick="resetAll()">🔄 Reset</button>
+  <div class="flex justify-center mb-4">
+    <button id="btn-camera" class="px-4 py-2 mx-2 bg-green-600 text-white rounded">Máy ảnh</button>
+    <button id="btn-upload" class="px-4 py-2 mx-2 bg-gray-300 text-black rounded">Tải ảnh</button>
   </div>
 
-  <img id="preview" alt="Ảnh đã chọn" />
-  <div id="result">📄 Nội dung QR sẽ hiển thị tại đây...</div>
+  <!-- Camera View -->
+  <div id="camera-view" class="flex justify-center hidden">
+    <video id="video" class="rounded shadow-lg" style="width: 300px; height: auto;"></video>
+  </div>
 
-  <script>
-    const resultDiv = document.getElementById('result');
-    const previewImg = document.getElementById('preview');
-    const cameraBtn = document.getElementById('camera-btn');
-    const uploadLabel = document.getElementById('upload-label');
-    const resetBtn = document.getElementById('reset-btn');
-    let html5QrCode;
-    let tingboxConnectCount = 0;
+  <!-- Upload View -->
+  <div id="upload-view" class="hidden">
+    <input type="file" id="file-input" accept="image/*" class="block mx-auto mt-4" />
+  </div>
 
-    function showResetHideOthers() {
-        resetBtn.style.display = 'block';
-        cameraBtn.style.display = 'none';
-        uploadLabel.style.display = 'none';
-    }
-
-    function parseWifiQR(qrCodeMessage) {
-        const wifiRegex = /^WIFI:.*S:([^;]+);.*P:([^;]*);/;
-        const match = qrCodeMessage.match(wifiRegex);
-        if (match) {
-            const [, ssid, password] = match;
-            const typeMatch = qrCodeMessage.match(/T:([^;]*);/);
-            const type = typeMatch ? typeMatch[1] : "Không xác định";
-            return { ssid, type, password };
-        }
-        return null;
-    }
-
-    function openWifiSettings() {
-        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-        if (isMobile) {
-            if (/Android/i.test(navigator.userAgent)) {
-                window.location.href = 'intent://#Intent;action=android.settings.WIFI_SETTINGS;end';
-            } else if (/iPhone|iPad/i.test(navigator.userAgent)) {
-                window.location.href = 'App-Prefs:root=WIFI';
-            }
-        } else {
-            alert("Vui lòng mở cài đặt Wi-Fi thủ công trên thiết bị của bạn.");
-        }
-    }
-
-    function connectToTingbox() {
-        tingboxConnectCount++;
-        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-        if (isMobile) {
-            if (/Android/i.test(navigator.userAgent)) {
-                window.location.href = 'intent://#Intent;action=android.settings.WIFI_SETTINGS;end';
-            } else if (/iPhone|iPad/i.test(navigator.userAgent)) {
-                window.location.href = 'App-Prefs:root=WIFI';
-            }
-        } else {
-            alert("Vui lòng mở cài đặt Wi-Fi và kết nối thủ công đến 'Tingbox' (không có mật khẩu).");
-        }
-        // Cập nhật hoặc thêm thông báo số lần kết nối
-        let messageDiv = document.getElementById('tingbox-message');
-        if (!messageDiv) {
-            messageDiv = document.createElement('div');
-            messageDiv.id = 'tingbox-message';
-            resultDiv.appendChild(messageDiv);
-        }
-        messageDiv.innerHTML = `Đang cố gắng kết nối đến Wi-Fi 'Tingbox' lần ${tingboxConnectCount}. Nếu không tự động, hãy vào cài đặt Wi-Fi và chọn 'Tingbox'.`;
-    }
-
-    function displayResult(qrCodeMessage) {
-        const wifiData = parseWifiQR(qrCodeMessage);
-        let resultHtml = '';
-        if (wifiData) {
-            resultHtml = `
-                ✅ Wi-Fi:<br>
-                <strong>Tên Wi-Fi (SSID):</strong> ${wifiData.ssid}<br>
-                <strong>Loại bảo mật:</strong> ${wifiData.type}<br>
-                <strong>Mật khẩu:</strong> ${wifiData.password} 
-                <button class="copy-btn" onclick="copyToClipboard('${wifiData.password}')">Sao chép</button><br>
-            `;
-        } else {
-            resultHtml = `
-                ✅ Nội dung: ${qrCodeMessage}<br>
-                <span style="color: red;">Đây không phải QR chứa Wi-Fi</span><br>
-            `;
-        }
-        resultHtml += `
-            <div class="button-container">
-                <button class="connect-btn" onclick="connectToTingbox()">Kết nối Tingbox</button>
-                <button class="settings-btn" onclick="openWifiSettings()">Cài đặt</button>
-            </div>
-        `;
-        resultDiv.innerHTML = resultHtml;
-        showResetHideOthers();
-    }
-
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert("Đã sao chép mật khẩu: " + text);
-        }).catch(err => {
-            console.error("Lỗi sao chép:", err);
-            alert("Không thể sao chép mật khẩu!");
-        });
-    }
-
-    async function resetReader() {
-        try {
-            if (html5QrCode) {
-                await html5QrCode.stop();
-                await html5QrCode.clear();
-                html5QrCode = null;
-            }
-        } catch (err) {
-            console.error("Lỗi khi reset reader:", err);
-        }
-        html5QrCode = new Html5Qrcode("preview");
-    }
-
-    function resetAll() {
-        location.reload();
-    }
-
-    async function startCameraScan() {
-        try {
-            await resetReader();
-            const cameras = await Html5Qrcode.getCameras();
-            if (cameras && cameras.length) {
-                await html5QrCode.start(
-                    { facingMode: "environment" },
-                    { fps: 10, qrbox: 250 },
-                    (qrCodeMessage) => {
-                        html5QrCode.stop().catch(err => console.error("Lỗi khi dừng camera:", err));
-                        displayResult(qrCodeMessage);
-                    },
-                    (error) => {
-                        console.warn("Lỗi quét:", error);
-                    }
-                );
-            } else {
-                alert("Không tìm thấy camera!");
-            }
-        } catch (err) {
-            alert("Không thể truy cập camera: " + err);
-            console.error("Lỗi khởi động camera:", err);
-        }
-    }
-
-    async function scanImage(input) {
-        try {
-            await resetReader();
-            const file = input.files[0];
-            if (!file) return;
-
-            const fileReader = new FileReader();
-            fileReader.onload = function(e) {
-                previewImg.src = e.target.result;
-                previewImg.style.display = 'block';
-            };
-            fileReader.readAsDataURL(file);
-
-            const qr = new Html5Qrcode("preview");
-            qr.scanFile(file, true)
-                .then(qrCodeMessage => {
-                    displayResult(qrCodeMessage);
-                })
-                .catch(err => {
-                    resultDiv.innerText = "❌ Không tìm thấy mã QR trong ảnh.";
-                    console.error("Lỗi quét ảnh:", err);
-                    showResetHideOthers();
-                });
-        } catch (err) {
-            resultDiv.innerText = "❌ Lỗi khi xử lý ảnh.";
-            console.error("Lỗi xử lý ảnh:", err);
-            showResetHideOthers();
-        }
-    }
-  </script>
+  <!-- Result -->
+  <div id="result" class="mt-6 text-lg font-semibold text-blue-700"></div>
 
 </body>
 </html>
