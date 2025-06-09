@@ -151,10 +151,11 @@
   <div id="loading">Đang gửi dữ liệu...</div>
   <div id="popup" class="popup"><span class="close-btn" onclick="hidePopup()">×</span><span id="popupMsg"></span></div>
 
-  <h2>Quản Lý Tiền</h2>
+  <h2>N Chiến</h2>
   <form id="moneyForm" class="group2">
     <label>Trạng thái:
-      <select id="status" name="status">
+      <select id="status" name="status" required>
+        <option value="" disabled selected>Chọn</option>
         <option value="IN">IN</option>
         <option value="OUT">OUT</option>
       </select>
@@ -173,9 +174,9 @@
         <option value="VCB">VCB</option>
         <option value="TECH">TECH</option>
         <option value="Zalopay">Zalopay</option>        
-        <option value="Zalopay">Zalopay - TS</option>
+        <option value="Zalopay - TS">Zalopay - TS</option>
         <option value="shopeepay">Shopeepay</option>
-        <option value="shopeepay">SpayLater - TS</option
+        <option value="SpayLater - TS">SpayLater - TS</option>
         <option value="VNpay">VNpay</option>
         <option value="Khác">Khác</option>
       </select>
@@ -211,7 +212,7 @@
           <option value="VCB">VCB</option>
           <option value="TECH">TECH</option>
           <option value="Zalopay">Zalopay</option>
-          <option value="shopeepay">shopeepay</option>
+          <option value="shopeepay">Shopeepay</option>
           <option value="VNpay">VNpay</option>
           <option value="Khác">Khác</option>
         </select>
@@ -221,10 +222,9 @@
     <div style="display: flex; justify-content: space-between; ">
       <button type="submit">Gửi</button>
     </div>
-<div style="display: flex; justify-content: flex-end; width: 20%;margin-left: auto; margin-right: 0;">
-  <button style="" type="button" id="resetBtn">Reset</button>
-</div>
-
+    <div style="display: flex; justify-content: flex-end; width: 20%; margin-left: auto; margin-right: 0;">
+      <button style="" type="button" id="resetBtn">Reset</button>
+    </div>
   </form>
 
   <!-- jQuery -->
@@ -290,7 +290,6 @@
       msg.innerText = message;
       popup.classList.toggle("error", isError);
       popup.style.display = "block";
-      setTimeout(hidePopup, 3000);
     }
 
     function hidePopup() {
@@ -299,6 +298,12 @@
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      // Kiểm tra trạng thái
+      if (!statusField.value) {
+        showPopup("❌ Vui lòng chọn trạng thái!", true);
+        return;
+      }
 
       loading.style.display = "flex";
 
@@ -349,6 +354,7 @@
       form.reset();
       transferWrapper.classList.add("hidden");
       transferFundWrapper.classList.add("hidden");
+      statusField.value = ""; // Đặt lại trạng thái về placeholder
     });
   </script>
 </body>
