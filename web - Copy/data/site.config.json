@@ -1,0 +1,93 @@
+﻿{
+  "brand": {
+    "companyShort": "Quang Luyến",
+    "companyLine1": "LĂNG MỘ ĐÁ NINH BÌNH",
+    "companyLine2": "ĐÁ MỸ NGHỆ QUANG LUYẾN",
+    "companyFull": "LĂNG MỘ ĐÁ NINH BÌNH\nĐÁ MỸ NGHỆ QUANG LUYẾN",
+    "addressTop": "Tổ dân phố 6, phường Yên Thắng, tỉnh Ninh Bình"
+  },
+  "contact": {
+    "hotlineText": "Hỗ trợ trực tuyến",
+    "hotlineNumber": "0337260123",
+    "phoneFooter": "0337260123",
+    "email": "nchien9xnb@gmail.com",
+    "addressFooter": "Tổ dân phố 6, phường Yên Thắng, tỉnh Ninh Bình",
+    "zalo": "0337260123"
+  },
+  "bank": {
+    "bankName": "VietinBank Ninh Bình",
+    "owner": "Nguyễn Chiến",
+    "accountNumber": "1010006750166"
+  },
+  "social": {
+    "facebookPageUrl": "https://www.facebook.com/",
+    "youtubeEmbedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "googleMapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18...",
+    "googleMapUrl": "https://maps.google.com/",
+    "tiktokUrl": "https://www.tiktok.com/"
+  },
+  "contactModule": {
+    "leadBefore": "Quý khách cần tư vấn thông tin miễn phí nhấn",
+    "leadActionText": "TẠI ĐÂY",
+    "leadAfter": ", hoặc liên hệ theo thông tin",
+    "companyName": "ĐÁ MỸ NGHỆ QUANG LUYẾN",
+    "items": [
+      {
+        "key": "company",
+        "label": "Tên cơ sở",
+        "display": "ĐÁ MỸ NGHỆ QUANG LUYẾN",
+        "href": "https://www.facebook.com/",
+        "icon": "/assets/img/general/logo.png",
+        "target": "_blank"
+      },
+      {
+        "key": "address",
+        "label": "Địa chỉ",
+        "display": "Tổ dân phố 6, phường Yên Thắng, tỉnh Ninh Bình",
+        "href": "https://maps.google.com/",
+        "icon": "/assets/img/general/logo.png",
+        "target": "_blank"
+      },
+      {
+        "key": "phone",
+        "label": "Gọi",
+        "display": "0337260123",
+        "href": "tel:0337260123",
+        "icon": "/assets/img/general/call.png"
+      },
+      {
+        "key": "zalo",
+        "label": "Zalo",
+        "display": "0337260123",
+        "href": "https://zalo.me/0337260123",
+        "icon": "/assets/img/general/zalo.png",
+        "target": "_blank"
+      },
+      {
+        "key": "tiktok",
+        "label": "TikTok",
+        "display": "/imnutsvn",
+        "href": "https://www.tiktok.com/",
+        "icon": "/assets/img/general/tiktok.png",
+        "target": "_blank"
+      },
+      {
+        "key": "youtube",
+        "label": "YouTube",
+        "display": "/imnutsvn",
+        "href": "https://www.youtube.com/",
+        "icon": "/assets/img/general/youtobe.png",
+        "target": "_blank"
+      },
+      {
+        "key": "facebook",
+        "label": "Facebook",
+        "display": "/imnutsvn",
+        "href": "https://www.facebook.com/",
+        "icon": "/assets/img/general/fb.png",
+        "target": "_blank"
+      }
+    ]
+  },
+  "copyright": "Copyright 2026 © Đá mỹ nghệ Quang Luyến"
+}

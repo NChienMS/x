@@ -1,0 +1,101 @@
+<!-- FOOTER DÙNG CHUNG - KHÔNG NHÉT DỮ LIỆU CỨNG Ở ĐÂY -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="container footer-grid">
+      <!-- Cột 1 -->
+      <section class="footer-col">
+        <h3 class="footer-title">VỀ CHÚNG TÔI</h3>
+        <ul class="footer-links">
+          <li><a href="/pages/quy-trinh-ban-hang.html">QUY TRÌNH BÁN HÀNG</a></li>
+          <li><a href="/pages/tu-van-bao-gia.html">TƯ VẤN BÁO GIÁ</a></li>
+        </ul>
+
+        <form class="footer-form" id="consultForm">
+          <input name="name" type="text" placeholder="Họ và tên" required />
+          <input name="phone" type="tel" placeholder="Số điện thoại" required />
+          <textarea name="content" placeholder="Nội dung cần tư vấn" rows="5" required></textarea>
+          <button type="submit" class="btn btn--primary">GỬI YÊU CẦU TƯ VẤN</button>
+          <p class="form-note">* Form demo (anh có thể nối Zalo/Email sau)</p>
+        </form>
+      </section>
+
+      <!-- Cột 2 -->
+      <section class="footer-col">
+        <h3 class="footer-title">THÔNG TIN LIÊN HỆ</h3>
+        <div class="footer-text">
+          <div>
+        <div data-site="brand.companyLine1"></div>
+        <div data-site="brand.companyLine2"></div>
+      </div>
+          <div><b>Điện thoại:</b> <span data-site="contact.phoneFooter">...</span></div>
+          <div data-site="contact.addressFooter">...</div>
+          <div><b>Email:</b> <span data-site="contact.email">...</span></div>
+          <div><b>Zalo:</b> <span data-site="contact.zalo">...</span></div>
+        </div>
+      </section>
+
+      <!-- Cột 3 -->
+      <section class="footer-col">
+        <h3 class="footer-title">CHÍNH SÁCH</h3>
+        <ul class="footer-links">
+          <li><a href="/pages/chinh-sach/chinh-sach-thanh-toan.html">Chính sách thanh toán</a></li>
+          <li><a href="/pages/chinh-sach/chinh-sach-van-chuyen.html">Chính sách vận chuyển</a></li>
+          <li><a href="/pages/chinh-sach/chinh-sach-mua-hang.html">Chính sách mua hàng</a></li>
+          <li><a href="/pages/chinh-sach/doi-tra-bao-hanh.html">Đổi trả bảo hành</a></li>
+          <li><a href="/pages/chinh-sach/chinh-sach-doi-tra.html">Chính sách đổi trả</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="footer-mid">
+    <div class="container footer-grid footer-grid--4">
+      <section class="footer-col">
+        <h3 class="footer-title">FACEBOOK</h3>
+        <div class="embed-box" id="fbBox">
+          <!-- Anh có thể nhúng plugin FB sau -->
+          <a class="embed-placeholder" target="_blank" rel="noopener" data-site-href="social.facebookPageUrl">Mở Facebook</a>
+        </div>
+      </section>
+
+      <section class="footer-col">
+        <h3 class="footer-title">VIDEO ĐÁ MỸ NGHỆ</h3>
+        <div class="embed-box">
+          <iframe class="embed-iframe" title="Video" data-site-src="social.youtubeEmbedUrl" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </section>
+
+      <section class="footer-col">
+        <h3 class="footer-title">BẢN ĐỒ</h3>
+        <div class="embed-box">
+          <iframe class="embed-iframe" title="Bản đồ" data-site-src="social.googleMapEmbedUrl" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <section class="footer-col">
+        <h3 class="footer-title">TÀI KHOẢN NGÂN HÀNG</h3>
+        <div class="footer-text">
+          <div><b data-site="bank.bankName">...</b></div>
+          <div>Chủ tài khoản: <span data-site="bank.owner">...</span></div>
+          <div>Số tài khoản: <span data-site="bank.accountNumber">...</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom__inner">
+      <span data-site="copyright">...</span>
+    </div>
+  </div>
+
+  <!-- floating action buttons -->
+  <div class="floating-actions">
+    <a href="#" data-site-href="contact.zalo" class="zalo-btn-small" title="Zalo" target="_blank" rel="noopener">
+      <img src="/assets/img/general/zalo.png" alt="Zalo">
+    </a>
+    <a href="#" data-hotline class="call-btn-small" title="Gọi ngay">
+      <img src="/assets/img/general/call.png" alt="Gọi">
+    </a>
+  </div>
+</footer>

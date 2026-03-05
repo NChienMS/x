@@ -1,0 +1,82 @@
+<!-- HEADER DÃ™NG CHUNG - KHÃ”NG NHÃ‰T Dá»® LIá»†U Cá»¨NG á»ž ÄÃ‚Y -->
+<header class="site-header">
+  <!-- Thanh trÃªn -->
+  <section class="topbar">
+    <div class="container">
+      <div class="col-inner topbar__inner">
+        <a class="brand" href="/">
+          <img class="brand__logo" data-asset="logo" alt="Logo" />
+          <div class="brand__text">
+            <div class="brand__title">
+              <div class="brand__line1" data-site="brand.companyLine1"></div>
+              <div class="brand__line2" data-site="brand.companyLine2"></div>
+            </div>
+            <div class="brand__addr" data-site="brand.addressTop">...</div>
+          </div>
+        </a>
+
+        <a class="hotline" data-hotline href="#">
+          <span class="hotline__label" data-site="contact.hotlineText">Há»— trá»£ trá»±c tuyáº¿n</span>
+          <span class="hotline__number" data-site="contact.hotlineNumber">...</span>
+        </a>
+
+        <!-- NÃºt menu mobile -->
+        <button class="nav-toggle" type="button" aria-label="Má»Ÿ menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu -->
+  <section class="nav">
+    <div class="container">
+      <div class="col-inner">
+        <ul class="nav__list" id="mainMenu">
+          <!-- JS sáº½ render menu tá»« data/menu.json -->
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="header-slider header-home-only" aria-label="Slider giá»›i thiá»‡u">
+    <div class="container">
+      <div class="col-inner">
+        <div class="header-slider__viewport" id="header-slider">
+          <div class="header-slider__track">
+            <div class="header-slider__slide is-active">
+              <img src="/assets/img/general/slide1.jpg" alt="Slide 1" />
+            </div>
+            <div class="header-slider__slide">
+              <img src="/assets/img/general/slide2.jpg" alt="Slide 2" />
+            </div>
+            <div class="header-slider__slide">
+              <img src="/assets/img/general/slide3.jpg" alt="Slide 3" />
+            </div>
+          </div>
+
+          <div class="header-slider__dots" aria-label="Chá»n slide">
+            <button class="header-slider__dot is-active" type="button" aria-label="Xem slide 1"></button>
+            <button class="header-slider__dot" type="button" aria-label="Xem slide 2"></button>
+            <button class="header-slider__dot" type="button" aria-label="Xem slide 3"></button>
+          </div>
+
+          <button class="header-slider__arrow header-slider__arrow--prev" type="button" aria-label="Slide trÆ°á»›c">
+            <span></span>
+          </button>
+          <button class="header-slider__arrow header-slider__arrow--next" type="button" aria-label="Slide tiáº¿p theo">
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="header-slogan header-home-only">
+    <div class="container">
+      <div class="col-inner">
+        <div class="header-slogan__inner">Láº¥y chá»¯ tÃ­n lÃ m kim chá»‰ nam</div>
+      </div>
+    </div>
+  </section>
+</header>

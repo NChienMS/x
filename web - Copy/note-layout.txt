@@ -1,0 +1,65 @@
+﻿GHI CHU BO CUC LAYOUT TAI SU DUNG
+================================
+
+1) KHUNG CHUNG (giu nguyen cho tat ca trang)
+--------------------------------------------
+<body>
+  <div id="appHeader"></div>
+
+  <main class="page-main">
+    <section class="page-section page-section--content">
+      <div class="container">
+        <div class="col-inner page-content">
+          <!-- Dat layout tai day -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="appFooter"></div>
+</body>
+
+2) LAYOUT 1 COT - TOAN BO NOI DUNG
+----------------------------------
+<div class="layout layout--full">
+  <section class="page-primary layout__main">
+    <!-- Noi dung chinh -->
+  </section>
+</div>
+
+3) LAYOUT SIDEBAR - TRANG CHU / DANH MUC
+----------------------------------------
+<div class="page-layout layout layout--sidebar">
+  <aside class="page-sidebar layout__aside">
+    <!-- Menu / Lien he -->
+  </aside>
+  <section class="page-primary layout__main">
+    <!-- Noi dung chinh -->
+  </section>
+</div>
+
+4) LAYOUT CHIA DOI - CHI TIET SAN PHAM
+--------------------------------------
+<div class="layout layout--split">
+  <section class="layout__left">
+    <!-- Gallery / Anh -->
+  </section>
+  <section class="layout__right">
+    <!-- Thong tin / CTA -->
+  </section>
+</div>
+
+5) GOI Y TEN BLOCK CON DE DONG NHAT
+-----------------------------------
+- block-card
+- block-title
+- block-meta
+- block-actions
+- block-note
+
+6) QUY UOC NHANH
+---------------
+- Header va Footer: giu nguyen
+- Than trang: dung 1 trong 3 layout tren
+- Mobile: CSS da co quy tac chuyen ve 1 cot cho sidebar/split
+- Nen uu tien tai su dung class, han che tao class moi neu khong can

@@ -1,0 +1,62 @@
+﻿<footer class="site-footer">
+  <section class="site-footer__main">
+    <div class="container">
+      <div class="col-inner footer-content">
+        <div class="footer-grid">
+          <div class="footer-col footer-col--form">
+            <div class="footer-title">Tư vấn nhanh</div>
+            <form id="footer-consult-form" class="consult-form" action="#" method="post">
+              <label class="sr-only" for="consult-name">Họ và tên</label>
+              <input id="consult-name" name="name" type="text" placeholder="Họ và tên" />
+
+              <label class="sr-only" for="consult-phone">Số điện thoại</label>
+              <input id="consult-phone" name="phone" type="tel" placeholder="Số điện thoại*" inputmode="numeric" pattern="[0-9+]*" required />
+
+              <button type="submit" class="btn btn-primary">Gửi</button>
+            </form>
+            <div id="consult-msg" class="consult-msg" aria-live="polite"></div>
+          </div>
+
+          <div class="footer-col footer-col--info">
+            <div class="footer-title">Thông tin liên hệ</div>
+            <ul class="footer-contact-list">
+              <li class="footer-text" id="footer-address" data-site="contact.addressFooter"></li>
+              <li class="footer-text">SĐT: <a href="#" data-hotline id="footer-phone"></a></li>
+              <li class="footer-text">Email: <a id="footer-email" href="mailto:" data-site-href="contact.email"></a></li>
+            </ul>
+            <p class="footer-desc" id="footer-desc">Cung cấp lăng mộ đá, phục vụ tư vấn thiết kế và thi công. Liên hệ để được báo giá nhanh và hỗ trợ kỹ thuật.</p>
+
+            <div class="footer-text follow-us"><strong>Theo dõi chúng tôi trên:</strong></div>
+            <div class="footer-social" id="footer-social"></div>
+          </div>
+
+          <div class="footer-col footer-col--map">
+            <div class="footer-title">Vị trí</div>
+            <div class="map-wrap">
+              <iframe id="footer-map" class="footer-map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="site-footer__bottom">
+    <div class="container">
+      <div class="col-inner footer-content">
+        <div class="footer-bottom">© <span id="year"></span> All rights reserved.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="floating-actions">
+    <a href="#" data-site-href="contact.zalo" class="zalo-btn-small" title="Zalo" target="_blank" rel="noopener">
+      <img src="/assets/img/general/zalo.png" alt="Zalo">
+    </a>
+    <a href="#" data-hotline class="call-btn-small" title="Gọi ngay">
+      <img src="/assets/img/general/call.png" alt="Gọi">
+    </a>
+  </div>
+</footer>
+
+<div class="floating-contact" id="floating-contact"></div>
