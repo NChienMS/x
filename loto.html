@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOTO NCHI</title>
+  <style>
+    :root {
+      --bg: #f4efe4;
+      --paper: #fffdf8;
+      --ink: #1f1a17;
+      --muted: #6b5f57;
+      --line: #d8c8b7;
+      --accent: #c45c2f;
+      --accent-dark: #8a3514;
+      --accent-soft: #f4d2bf;
+      --success: #146c43;
+      --shadow: 0 18px 40px rgba(45, 26, 11, 0.14);
+      --radius: 22px;
+      --receipt-width: 80mm;
+      font-family: "Segoe UI", "Tahoma", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(196, 92, 47, 0.2), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(77, 124, 15, 0.14), transparent 24%),
+        linear-gradient(135deg, #f7f0e5 0%, #f2ebde 45%, #efe4d2 100%);
+      font-family: "Segoe UI", "Tahoma", sans-serif;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 24px auto 40px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .hero,
+    .panel,
+    .receipt-preview {
+      background: rgba(255, 253, 248, 0.92);
+      border: 1px solid rgba(216, 200, 183, 0.85);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      padding: 30px 26px;
+      text-align: center;
+    }
+
+    .brand h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: 0.06em;
+      font-family: "Arial Black", "Segoe UI", sans-serif;
+    }
+
+    .brand p,
+    .section-subtitle,
+    .receipt-note {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .store-info {
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+    }
+
+    .store-line {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .summary-title,
+    .section-title {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-dark);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 24px;
+    }
+
+    .section-block + .section-block {
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .type-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .type-chip {
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 5px;
+      border: 1px solid #ddc1b0;
+      background: #fff8f3;
+      color: var(--accent-dark);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .type-chip.active {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: white;
+      border-color: transparent;
+    }
+
+    .section-title {
+      margin-bottom: 4px;
+    }
+
+    .rows {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bet-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 160px) auto minmax(180px, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .number-field,
+    .money-select,
+    .action-btn,
+    .print-btn {
+      min-height: 52px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      font-size: 1rem;
+    }
+
+    .number-field,
+    .money-select {
+      width: 100%;
+      padding: 0 16px;
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .number-field {
+      font-size: 1.45rem;
+      letter-spacing: 0.22em;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .number-field.empty {
+      color: #b89d8a;
+      letter-spacing: 0.06em;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .number-field.invalid,
+    .money-select.invalid {
+      border-color: #c62828;
+      background: #fff1f1;
+      color: #8f1717;
+    }
+
+    .cross {
+      font-size: 1.4rem;
+      color: var(--muted);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .money-select {
+      appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, var(--accent-dark) 50%),
+        linear-gradient(135deg, var(--accent-dark) 50%, transparent 50%);
+      background-position:
+        calc(100% - 22px) calc(50% - 4px),
+        calc(100% - 15px) calc(50% - 4px);
+      background-size: 7px 7px, 7px 7px;
+      background-repeat: no-repeat;
+      font-weight: 600;
+    }
+
+    .action-btn,
+    .print-btn,
+    .ghost-btn {
+      padding: 0 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .action-btn:hover,
+    .print-btn:hover,
+    .ghost-btn:hover,
+    .number-field:hover,
+    .money-select:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(61, 37, 20, 0.1);
+    }
+
+    .delete-btn {
+      border: 1px solid #ebc8b6;
+      background: #fff4ef;
+      color: #b23b12;
+      font-weight: 700;
+    }
+
+    .add-row {
+      margin-top: 12px;
+    }
+
+    .ghost-btn {
+      min-height: 46px;
+      border-radius: 5px;
+      border: 1px dashed var(--accent);
+      background: #fffaf6;
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    .summary {
+      display: grid;
+      gap: 18px;
+    }
+
+    .summary-card,
+    .prize-card {
+      border: 1px solid rgba(216, 200, 183, 0.95);
+      border-radius: 18px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246, 239, 230, 0.94));
+    }
+
+    .summary-line,
+    .summary-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .summary-line + .summary-line,
+    .summary-total {
+      border-top: 1px dashed var(--line);
+    }
+
+    .summary-total {
+      margin-top: 4px;
+      padding-top: 14px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--accent-dark);
+    }
+
+    .summary-inline {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .print-inline {
+      margin-top: 16px;
+    }
+
+    .print-btn {
+      border: 0;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 800;
+      width: 100%;
+    }
+
+    .prize-grid {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.94rem;
+    }
+
+    .prize-grid th,
+    .prize-grid td {
+      border: 1px solid #a59284;
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+
+    .prize-grid th {
+      text-align: center;
+      background: #f7eee5;
+      font-weight: 800;
+    }
+
+    .prize-grid td.type-cell {
+      width: 64px;
+      text-align: center;
+      font-weight: 800;
+      background: #fbf4ed;
+    }
+
+    .prize-grid td.code-cell {
+      width: 78px;
+      text-align: center;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .prize-grid .note-row td {
+      font-style: italic;
+      background: #fffaf6;
+    }
+
+    .receipt-preview {
+      padding: 22px;
+    }
+
+    .receipt-sheet {
+      width: min(100%, 320px);
+      margin: 0 auto;
+      background: white;
+      color: #111;
+      border: 1px dashed #bbb;
+      padding: 14px;
+      font-size: 12px;
+      line-height: 1.45;
+      font-family: "Courier New", monospace;
+    }
+
+    .receipt-sheet h2,
+    .receipt-sheet h3,
+    .receipt-sheet p {
+      margin: 0;
+    }
+
+    .receipt-center {
+      text-align: center;
+    }
+
+    .receipt-divider {
+      border-top: 1px dashed #111;
+      margin: 10px 0;
+    }
+
+    .receipt-table,
+    .prize-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .receipt-table th,
+    .receipt-table td,
+    .prize-table th,
+    .prize-table td {
+      padding: 4px 0;
+      border-bottom: 1px dotted #bbb;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .receipt-right {
+      text-align: right;
+    }
+
+    .signature-box {
+      height: 52px;
+      border-bottom: 1px solid #111;
+      margin-top: 12px;
+    }
+
+    .keyboard-backdrop,
+    .dialog-backdrop {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(27, 18, 12, 0.45);
+      z-index: 30;
+      padding: 16px;
+    }
+
+    .keyboard-backdrop.open,
+    .dialog-backdrop.open {
+      display: flex;
+    }
+
+    .keyboard,
+    .dialog {
+      width: min(100%, 360px);
+      background: var(--paper);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(216, 200, 183, 0.95);
+      padding: 20px;
+    }
+
+    .keyboard-header,
+    .dialog-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .keyboard-value {
+      min-height: 58px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      margin-bottom: 14px;
+    }
+
+    .keyboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .key-btn,
+    .dialog-btn {
+      min-height: 54px;
+      border-radius: 5px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      font-size: 1.18rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .key-btn.action,
+    .dialog-btn.primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: white;
+      border: 0;
+    }
+
+    .key-btn:disabled,
+    .dialog-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .key-btn.secondary,
+    .dialog-btn.secondary {
+      background: #fff4ef;
+      color: #9b3a14;
+      border-color: #e8c1ae;
+    }
+
+    .dialog-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 20px, 100%);
+        margin-top: 10px;
+      }
+
+      .panel,
+      .hero,
+      .receipt-preview {
+        padding: 18px;
+      }
+
+      .bet-row {
+        grid-template-columns: 1fr;
+      }
+
+      .cross {
+        display: none;
+      }
+    }
+
+    @page {
+      size: 80mm auto;
+      margin: 4mm;
+    }
+
+    @media print {
+      body * {
+        display: none !important;
+        visibility: hidden !important;
+      }
+
+      .print-only,
+      .print-only * {
+        display: revert !important;
+        visibility: visible !important;
+      }
+
+      .print-only {
+        display: block !important;
+        position: absolute;
+        inset: 0 auto auto 0;
+      }
+
+      .print-only .receipt-sheet {
+        display: block !important;
+        width: 80mm;
+        margin: 0;
+        border: 0;
+        padding: 0;
+      }
+    }
+
+    .print-only {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="brand">
+        <h1>LOTO NCHI</h1>
+      </div>
+      <div class="store-info">
+        <div class="store-line">Tên cửa hàng: LOTO NCHI</div>
+        <div class="store-line">SĐT: 0999999999</div>
+        <div class="store-line">Địa chỉ: 133 Phố Wall</div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <div>
+          <strong class="summary-title">Chọn dạng loto muốn bán</strong>
+        </div>
+        <div class="type-switcher" id="typeSwitcher"></div>
+        <div id="betSections"></div>
+        <div class="summary-inline">
+          <strong class="summary-title">Tổng tiền tạm tính</strong>
+          <div class="summary-line">
+            <span>Loto 2 số</span>
+            <strong id="sum-2">0 đ</strong>
+          </div>
+          <div class="summary-line">
+            <span>Loto 3 số</span>
+            <strong id="sum-3">0 đ</strong>
+          </div>
+          <div class="summary-line">
+            <span>Loto 4 số</span>
+            <strong id="sum-4">0 đ</strong>
+          </div>
+          <div class="summary-total">
+            <span>Tổng thành tiền</span>
+            <strong id="sum-all">0 đ</strong>
+          </div>
+        </div>
+      </section>
+
+      <aside class="summary">
+        <section class="prize-card">
+          <strong class="summary-title">Thông tin giải thưởng</strong>
+          <table class="prize-grid">
+            <tr>
+              <th colspan="4">KẾT QUẢ LÔ TÔ 4 SỐ - 3 SỐ - 2 SỐ</th>
+            </tr>
+            <tr>
+              <td class="type-cell" rowspan="3">4 SỐ</td>
+              <td colspan="2">Trúng 4 số: bằng 1.200 lần giá trị vé mua</td>
+              <td class="code-cell">1059</td>
+            </tr>
+            <tr>
+              <td colspan="2">Hạng giải khuyến khích: Trúng 3 số cuối bằng 50 lần giá trị vé mua</td>
+              <td class="code-cell">059</td>
+            </tr>
+            <tr>
+              <td colspan="2">Trúng 2 số cuối bằng 5 lần giá trị vé mua</td>
+              <td class="code-cell">59</td>
+            </tr>
+            <tr class="note-row">
+              <td colspan="4">Vé trúng nhiều giải chỉ được lĩnh giải có giá trị cao nhất</td>
+            </tr>
+            <tr>
+              <td class="type-cell" rowspan="4">3 SỐ</td>
+              <td>Hạng giải 1: bằng 420 lần giá trị vé mua</td>
+              <td class="code-cell">059</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Hạng giải 2: bằng 20 lần giá trị vé mua</td>
+              <td class="code-cell">748</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Hạng giải 3: bằng 5 lần giá trị vé mua</td>
+              <td class="code-cell">724 - 117 - 034</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Hạng giải khuyến khích: bằng 5 lần giá trị vé mua</td>
+              <td class="code-cell">59</td>
+              <td></td>
+            </tr>
+            <tr class="note-row">
+              <td colspan="4">Vé trúng nhiều giải thưởng được lĩnh đủ giá trị các giải thưởng</td>
+            </tr>
+            <tr>
+              <td class="type-cell" rowspan="2">2 SỐ</td>
+              <td>Hạng giải 1: bằng 70 lần giá trị vé mua</td>
+              <td class="code-cell">59</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Hạng giải 2: bằng giá trị vé mua</td>
+              <td class="code-cell">48</td>
+              <td></td>
+            </tr>
+            <tr class="note-row">
+              <td colspan="4">Vé trúng thưởng cả 2 hạng giải được lĩnh đủ giá trị hai hạng giải</td>
+            </tr>
+          </table>
+        </section>
+      </aside>
+    </div>
+
+    <section class="receipt-preview">
+      <strong class="summary-title">Xem trước phiếu in</strong>
+      <div class="receipt-sheet" id="receiptPreview"></div>
+      <div class="print-inline">
+        <button class="print-btn" id="printBtn" type="button">In phiếu</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="keyboard-backdrop" id="keyboardModal" aria-hidden="true">
+    <div class="keyboard">
+      <div class="keyboard-header">
+        <div>
+          <strong class="summary-title" id="keyboardTitle">Nhập số</strong>
+          <p class="section-subtitle" id="keyboardSubtitle">Tối đa 2 chữ số</p>
+        </div>
+        <button class="dialog-btn secondary" type="button" id="keyboardClose">Đóng</button>
+      </div>
+      <div class="keyboard-value" id="keyboardValue"></div>
+      <div class="keyboard-grid">
+        <button class="key-btn" type="button" data-key="1">1</button>
+        <button class="key-btn" type="button" data-key="2">2</button>
+        <button class="key-btn" type="button" data-key="3">3</button>
+        <button class="key-btn" type="button" data-key="4">4</button>
+        <button class="key-btn" type="button" data-key="5">5</button>
+        <button class="key-btn" type="button" data-key="6">6</button>
+        <button class="key-btn" type="button" data-key="7">7</button>
+        <button class="key-btn" type="button" data-key="8">8</button>
+        <button class="key-btn" type="button" data-key="9">9</button>
+        <button class="key-btn secondary" type="button" id="keyboardClear">Xóa</button>
+        <button class="key-btn" type="button" data-key="0">0</button>
+        <button class="key-btn action" type="button" id="keyboardDone">Xong</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-backdrop" id="confirmModal" aria-hidden="true">
+    <div class="dialog">
+      <div class="dialog-header">
+        <div>
+          <strong class="summary-title">Xác nhận xóa</strong>
+          <p id="confirmText">Bạn có muốn xóa số này không?</p>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button class="dialog-btn secondary" type="button" id="cancelDelete">Hủy</button>
+        <button class="dialog-btn primary" type="button" id="confirmDelete">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-backdrop" id="confirmTypeModal" aria-hidden="true">
+    <div class="dialog">
+      <div class="dialog-header">
+        <div>
+          <strong class="summary-title">Xác nhận bỏ bán</strong>
+          <p id="confirmTypeText">Bạn có muốn bỏ loại loto này không?</p>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button class="dialog-btn secondary" type="button" id="cancelDisableType">Hủy</button>
+        <button class="dialog-btn primary" type="button" id="confirmDisableType">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="print-only">
+    <div class="receipt-sheet" id="printReceipt"></div>
+  </div>
+
+  <script>
+    const DENOMINATIONS = [20000, 50000, 100000, 200000, 500000, 1000000];
+    const BET_TYPES = [
+      { digits: 2, label: "LOTO 2 SỐ" },
+      { digits: 3, label: "LOTO 3 SỐ" },
+      { digits: 4, label: "LOTO 4 SỐ" }
+    ];
+
+    const PRIZE_INFO = [
+      {
+        type: "Loto 4 số",
+        lines: [
+          "Trúng 4 số: 1.200 lần giá trị vé mua",
+          "Trúng 3 số cuối: 50 lần giá trị vé mua",
+          "Trúng 2 số cuối: 5 lần giá trị vé mua",
+          "Trúng nhiều giải chỉ lĩnh giải cao nhất",
+          "* Vé trúng nhiều giải chi được lĩnh giải có giá trị cao nhất"
+        ]
+      },
+      {
+        type: "Loto 3 số",
+        lines: [
+          "Hạng giải 1: 420 lần giá trị vé mua",
+          "Hạng giải 2: 20 lần giá trị vé mua",
+          "Hạng giải 3: 5 lần giá trị vé mua",
+          "Hạng giải huyến khích: 5 lần giá trị vé mua",
+          "* Vé trúng nhiều giải được lĩnh đủ giá trị các giải thưởng"
+        ]
+      },
+      {
+        type: "Loto 2 số",
+        lines: [
+          "Hạng giải 1: 70 lần giá trị vé mua - mã 59",
+          "Hạng giải 2: bằng giá trị vé mua - mã 48",
+          "Trúng cả 2 hạng giải sẽ lĩnh đủ hai hạng giải",
+          "* Vé trúng thưởng cả 2 hạng giải được lĩnh đủ giá trị hai hạng giải"
+        ]
+      }
+    ];
+
+    const state = {
+      bets: {
+        2: [{ id: crypto.randomUUID(), number: "", amount: "" }],
+        3: [{ id: crypto.randomUUID(), number: "", amount: "" }],
+        4: [{ id: crypto.randomUUID(), number: "", amount: "" }]
+      },
+      activeTypes: new Set(),
+      invalidRows: new Set(),
+      activeInput: null,
+      pendingDelete: null,
+      pendingDisableType: null
+    };
+
+    const betSections = document.getElementById("betSections");
+    const typeSwitcher = document.getElementById("typeSwitcher");
+    const receiptPreview = document.getElementById("receiptPreview");
+    const printReceipt = document.getElementById("printReceipt");
+    const keyboardModal = document.getElementById("keyboardModal");
+    const keyboardValue = document.getElementById("keyboardValue");
+    const keyboardTitle = document.getElementById("keyboardTitle");
+    const keyboardSubtitle = document.getElementById("keyboardSubtitle");
+    const keyboardDone = document.getElementById("keyboardDone");
+    const confirmModal = document.getElementById("confirmModal");
+    const confirmText = document.getElementById("confirmText");
+    const confirmTypeModal = document.getElementById("confirmTypeModal");
+    const confirmTypeText = document.getElementById("confirmTypeText");
+
+    function formatCurrency(value) {
+      return `${Number(value || 0).toLocaleString("vi-VN")} đ`;
+    }
+
+    function formatDateTime(date = new Date()) {
+      return new Intl.DateTimeFormat("vi-VN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function totalsByType() {
+      return BET_TYPES.reduce((acc, type) => {
+        acc[type.digits] = state.bets[type.digits].reduce((sum, row) => sum + Number(row.amount || 0), 0);
+        return acc;
+      }, {});
+    }
+
+    function createMoneyOptions(selectedValue) {
+      const placeholder = `<option value="">Chọn số tiền muốn chơi</option>`;
+      const options = DENOMINATIONS.map((value) => {
+        const selected = Number(selectedValue) === value ? "selected" : "";
+        return `<option value="${value}" ${selected}>${formatCurrency(value)}</option>`;
+      }).join("");
+      return `${placeholder}${options}`;
+    }
+
+    function renderTypeSwitcher() {
+      typeSwitcher.innerHTML = BET_TYPES.map((type) => `
+        <button
+          class="type-chip ${state.activeTypes.has(type.digits) ? "active" : ""}"
+          type="button"
+          data-action="toggle-type"
+          data-digits="${type.digits}"
+        >${type.label}</button>
+      `).join("");
+    }
+
+    function renderBetSections() {
+      const visibleTypes = BET_TYPES.filter((type) => state.activeTypes.has(type.digits));
+      if (visibleTypes.length === 0) {
+        betSections.innerHTML = `
+          <div class="section-block">
+            <p class="section-subtitle">Chưa chọn loại loto nào. Hãy bấm một nút ở phía trên để mở phần nhập số.</p>
+          </div>
+        `;
+        return;
+      }
+
+      betSections.innerHTML = visibleTypes.map((type) => {
+        const rows = state.bets[type.digits].map((row, index) => {
+          const showDelete = state.bets[type.digits].length > 1;
+          const rowKey = `${type.digits}-${row.id}`;
+          const invalid = state.invalidRows.has(rowKey);
+          return `
+            <div class="bet-row">
+              <button
+                class="number-field ${row.number ? "" : "empty"} ${invalid && row.number.length !== type.digits ? "invalid" : ""}"
+                type="button"
+                data-action="open-keyboard"
+                data-digits="${type.digits}"
+                data-id="${row.id}"
+              >${row.number || "Nhập số"}</button>
+              <div class="cross">x</div>
+              <select class="money-select ${invalid && !row.amount ? "invalid" : ""}" data-action="change-amount" data-digits="${type.digits}" data-id="${row.id}">
+                ${createMoneyOptions(row.amount)}
+              </select>
+              ${showDelete ? `<button class="action-btn delete-btn" type="button" data-action="delete-row" data-digits="${type.digits}" data-id="${row.id}" data-number="${row.number || ""}">Xóa số</button>` : `<span></span>`}
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <div class="section-block">
+            <strong class="section-title">${type.label}</strong>
+            <div class="rows">${rows}</div>
+            <div class="add-row">
+              <button class="ghost-btn" type="button" data-action="add-row" data-digits="${type.digits}">+ Thêm số khác</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderSummary() {
+      const totals = totalsByType();
+      document.getElementById("sum-2").textContent = formatCurrency(totals[2]);
+      document.getElementById("sum-3").textContent = formatCurrency(totals[3]);
+      document.getElementById("sum-4").textContent = formatCurrency(totals[4]);
+      document.getElementById("sum-all").textContent = formatCurrency(totals[2] + totals[3] + totals[4]);
+    }
+
+    function getFilledRows() {
+      return BET_TYPES.flatMap((type) =>
+        state.bets[type.digits]
+          .filter((row) => row.number && row.amount)
+          .map((row) => ({
+            type: `${type.digits} số`,
+            number: row.number,
+            amount: Number(row.amount)
+          }))
+      );
+    }
+
+    function getVisibleRows() {
+      return BET_TYPES.flatMap((type) =>
+        state.bets[type.digits]
+          .filter((row) => row.number || row.amount)
+          .map((row) => ({
+            digits: type.digits,
+            number: row.number,
+            amount: Number(row.amount || 0)
+          }))
+      );
+    }
+
+    function validateForPrint() {
+      const visibleRows = getVisibleRows();
+      state.invalidRows = new Set();
+      if (visibleRows.length === 0) {
+        alert("Vui lòng chọn ít nhất 1 số và mệnh giá trước khi in.");
+        rerender();
+        return false;
+      }
+
+      for (const type of BET_TYPES) {
+        for (const row of state.bets[type.digits]) {
+          if (!row.number && !row.amount) continue;
+          if (row.number.length !== type.digits || !row.amount) {
+            state.invalidRows.add(`${type.digits}-${row.id}`);
+          }
+        }
+      }
+
+      if (state.invalidRows.size > 0) {
+        rerender();
+        alert("Các dòng tô đỏ đang thiếu số hoặc chưa chọn mệnh giá.");
+        return false;
+      }
+
+      rerender();
+      return true;
+    }
+
+    function receiptHtml() {
+      const filledRows = getFilledRows();
+      const totals = totalsByType();
+      const allTotal = totals[2] + totals[3] + totals[4];
+      const shownTotals = BET_TYPES.filter((type) => totals[type.digits] > 0)
+        .map((type) => `<p>Loto ${type.digits} số: ${formatCurrency(totals[type.digits])}</p>`)
+        .join("");
+      const rowHtml = filledRows.length
+        ? filledRows.map((item) => `
+            <tr>
+              <td>${item.type}</td>
+              <td>${item.number}</td>
+              <td class="receipt-right">${formatCurrency(item.amount)}</td>
+            </tr>
+          `).join("")
+        : `<tr><td colspan="3">Chưa có số nào được chọn.</td></tr>`;
+
+      const prizeHtml = PRIZE_INFO.map((group) => `
+        <tr>
+          <td><strong>${group.type}</strong><br>${group.lines.join("<br>")}</td>
+        </tr>
+      `).join("");
+
+      return `
+        <div class="receipt-center">
+          <h2>LOTO NCHI</h2>
+          <p>133 Phố Wall</p>
+          <p>SĐT: 0999999999</p>
+          <p>Phiếu bán loto nội bộ</p>
+        </div>
+        <div class="receipt-divider"></div>
+        <p>Thời gian in: ${formatDateTime()}</p>
+        <table class="receipt-table">
+          <thead>
+            <tr>
+              <th>Loại</th>
+              <th>Số</th>
+              <th class="receipt-right">Tiền</th>
+            </tr>
+          </thead>
+          <tbody>${rowHtml}</tbody>
+        </table>
+        <div class="receipt-divider"></div>
+        ${shownTotals || "<p>Chưa có dòng loto nào được chọn.</p>"}
+        <p><strong>Tổng thành tiền: ${formatCurrency(allTotal)}</strong></p>
+        <div class="receipt-divider"></div>
+        <p><strong>Chữ ký người bán</strong></p>
+        <div class="signature-box"></div>
+        <p><strong>Thông tin giá trị vé và hạng giải</strong></p>
+        <table class="prize-table">
+          <tbody>${prizeHtml}</tbody>
+        </table>
+      `;
+    }
+
+    function renderReceipt() {
+      const html = receiptHtml();
+      receiptPreview.innerHTML = html;
+      printReceipt.innerHTML = html;
+    }
+
+    function rerender() {
+      renderTypeSwitcher();
+      renderBetSections();
+      renderSummary();
+      renderReceipt();
+    }
+
+    function hasDataInType(digits) {
+      return state.bets[digits].some((row) => row.number || row.amount);
+    }
+
+    function toggleType(digits) {
+      if (state.activeTypes.has(digits)) {
+        if (hasDataInType(digits)) {
+          state.pendingDisableType = digits;
+          confirmTypeText.textContent = `Bạn có muốn bỏ bán LOTO ${digits} SỐ và xóa các số đã chọn không?`;
+          confirmTypeModal.classList.add("open");
+          return;
+        }
+        disableType(digits);
+        return;
+      }
+      state.activeTypes.add(digits);
+      rerender();
+    }
+
+    function disableType(digits) {
+      state.activeTypes.delete(digits);
+      state.invalidRows = new Set([...state.invalidRows].filter((key) => !key.startsWith(`${digits}-`)));
+      state.bets[digits] = [{ id: crypto.randomUUID(), number: "", amount: "" }];
+      rerender();
+    }
+
+    function closeDisableTypeDialog() {
+      state.pendingDisableType = null;
+      confirmTypeModal.classList.remove("open");
+    }
+
+    function confirmDisableTypeAction() {
+      if (state.pendingDisableType == null) return;
+      const digits = state.pendingDisableType;
+      closeDisableTypeDialog();
+      disableType(digits);
+    }
+
+    function openKeyboard(digits, id) {
+      const row = state.bets[digits].find((item) => item.id === id);
+      if (!row) return;
+      state.activeInput = { digits, id, value: row.number || "" };
+      keyboardTitle.textContent = `Nhập số loto ${digits} số`;
+      keyboardSubtitle.textContent = `Chỉ nhập tối đa ${digits} chữ số`;
+      keyboardValue.textContent = row.number || "_".repeat(digits);
+      syncKeyboardState();
+      keyboardModal.classList.add("open");
+    }
+
+    function syncKeyboardDisplay() {
+      if (!state.activeInput) return;
+      const { digits, value } = state.activeInput;
+      keyboardValue.textContent = value || "_".repeat(digits);
+      syncKeyboardState();
+    }
+
+    function syncKeyboardState() {
+      if (!state.activeInput) {
+        keyboardDone.disabled = true;
+        return;
+      }
+      keyboardDone.disabled = state.activeInput.value.length !== state.activeInput.digits;
+    }
+
+    function appendDigit(digit) {
+      if (!state.activeInput) return;
+      const { digits } = state.activeInput;
+      if (state.activeInput.value.length >= digits) return;
+      state.activeInput.value += digit;
+      syncKeyboardDisplay();
+    }
+
+    function backspaceDigit() {
+      if (!state.activeInput) return;
+      state.activeInput.value = state.activeInput.value.slice(0, -1);
+      syncKeyboardDisplay();
+    }
+
+    function closeKeyboard(save = false) {
+      if (save && state.activeInput && state.activeInput.value.length !== state.activeInput.digits) {
+        return;
+      }
+      if (save && state.activeInput) {
+        const { digits, id, value } = state.activeInput;
+        const row = state.bets[digits].find((item) => item.id === id);
+        if (row) {
+          row.number = value;
+          state.invalidRows.delete(`${digits}-${id}`);
+        }
+      }
+      state.activeInput = null;
+      keyboardModal.classList.remove("open");
+      rerender();
+    }
+
+    function addRow(digits) {
+      state.bets[digits].push({
+        id: crypto.randomUUID(),
+        number: "",
+        amount: ""
+      });
+      rerender();
+    }
+
+    function updateAmount(digits, id, amount) {
+      const row = state.bets[digits].find((item) => item.id === id);
+      if (!row) return;
+      row.amount = amount;
+      if (amount) state.invalidRows.delete(`${digits}-${id}`);
+      renderSummary();
+      renderReceipt();
+      renderBetSections();
+    }
+
+    function askDelete(digits, id) {
+      const row = state.bets[digits].find((item) => item.id === id);
+      if (!row) return;
+      if (!row.number && !row.amount) {
+        state.bets[digits] = state.bets[digits].filter((item) => item.id !== id);
+        if (state.bets[digits].length === 0) {
+          state.bets[digits].push({ id: crypto.randomUUID(), number: "", amount: "" });
+        }
+        rerender();
+        return;
+      }
+      state.pendingDelete = { digits, id };
+      confirmText.textContent = `Bạn có muốn xóa số ${row.number || "(chưa nhập số)"} không?`;
+      confirmModal.classList.add("open");
+    }
+
+    function closeDeleteDialog() {
+      state.pendingDelete = null;
+      confirmModal.classList.remove("open");
+    }
+
+    function confirmDeleteRow() {
+      if (!state.pendingDelete) return;
+      const { digits, id } = state.pendingDelete;
+      state.bets[digits] = state.bets[digits].filter((row) => row.id !== id);
+      state.invalidRows.delete(`${digits}-${id}`);
+      if (state.bets[digits].length === 0) {
+        state.bets[digits].push({ id: crypto.randomUUID(), number: "", amount: "" });
+      }
+      closeDeleteDialog();
+      rerender();
+    }
+
+    betSections.addEventListener("click", (event) => {
+      const target = event.target.closest("[data-action]");
+      if (!target) return;
+      const action = target.dataset.action;
+      const digits = Number(target.dataset.digits);
+      const id = target.dataset.id;
+
+      if (action === "open-keyboard") openKeyboard(digits, id);
+      if (action === "add-row") addRow(digits);
+      if (action === "delete-row") askDelete(digits, id);
+    });
+
+    betSections.addEventListener("change", (event) => {
+      const target = event.target.closest("[data-action='change-amount']");
+      if (!target) return;
+      updateAmount(Number(target.dataset.digits), target.dataset.id, target.value);
+    });
+
+    typeSwitcher.addEventListener("click", (event) => {
+      const target = event.target.closest("[data-action='toggle-type']");
+      if (!target) return;
+      toggleType(Number(target.dataset.digits));
+    });
+
+    keyboardModal.addEventListener("click", (event) => {
+      if (event.target === keyboardModal) closeKeyboard(false);
+    });
+
+    document.querySelectorAll("[data-key]").forEach((button) => {
+      button.addEventListener("click", () => appendDigit(button.dataset.key));
+    });
+
+    document.getElementById("keyboardClear").addEventListener("click", backspaceDigit);
+    document.getElementById("keyboardDone").addEventListener("click", () => closeKeyboard(true));
+    document.getElementById("keyboardClose").addEventListener("click", () => closeKeyboard(false));
+    document.getElementById("cancelDelete").addEventListener("click", closeDeleteDialog);
+    document.getElementById("confirmDelete").addEventListener("click", confirmDeleteRow);
+    confirmModal.addEventListener("click", (event) => {
+      if (event.target === confirmModal) closeDeleteDialog();
+    });
+    document.getElementById("cancelDisableType").addEventListener("click", closeDisableTypeDialog);
+    document.getElementById("confirmDisableType").addEventListener("click", confirmDisableTypeAction);
+    confirmTypeModal.addEventListener("click", (event) => {
+      if (event.target === confirmTypeModal) closeDisableTypeDialog();
+    });
+
+    document.getElementById("printBtn").addEventListener("click", () => {
+      if (!validateForPrint()) return;
+      renderReceipt();
+      window.print();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!keyboardModal.classList.contains("open")) return;
+      if (/^\d$/.test(event.key)) appendDigit(event.key);
+      if (event.key === "Backspace") backspaceDigit();
+      if (event.key === "Enter") closeKeyboard(true);
+      if (event.key === "Escape") closeKeyboard(false);
+    });
+
+    rerender();
+  </script>
+</body>
+</html>
