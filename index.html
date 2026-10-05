@@ -2,132 +2,126 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#eef2f7" />
   <title>Nguyễn Văn Chiến</title>
   <meta name="description" content="Trang liên hệ cá nhân Nguyễn Văn Chiến." />
-  <meta property="og:image" content="https://aries908218.files.wordpress.com/2022/06/imgshare2.png" />
-  <link rel="icon" href="img/icon.png" type="image/x-icon" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+  <meta property="og:title" content="Nguyễn Văn Chiến" />
+  <meta property="og:description" content="Trang liên hệ cá nhân Nguyễn Văn Chiến." />
+  <meta property="og:image" content="img/avatar-modal.jpg" />
+  <link rel="icon" href="img/favicon-64.png" type="image/png" />
+  <link rel="preload" as="image" href="img/avatar-modal.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/fontawesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/solid.min.css" />
   <link rel="stylesheet" href="./style.css" />
   <script defer src="./script.js"></script>
 </head>
 
 <body>
   <main class="page" id="page">
-    <section class="card" aria-label="Trang liên hệ">
-      <a class="top-btn top-btn--left" href="https://www.facebook.com/profile.php?=75816879" aria-label="Quay lại">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+    <section class="profile" aria-label="Trang liên hệ cá nhân">
+      <a class="top-btn top-btn--left" href="https://www.facebook.com/nchienms/" aria-label="Mở Facebook">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" /></svg>
       </a>
 
-      <button class="top-btn top-btn--right" id="themeToggle" type="button" aria-label="Đổi giao diện">
-        <i class="fas fa-moon" id="themeIcon" aria-hidden="true"></i>
+      <button class="top-btn top-btn--right" id="themeToggle" type="button" aria-label="Đổi giao diện" aria-pressed="false">
+        <i class="fa-solid fa-moon theme-icon theme-icon--moon" aria-hidden="true"></i>
+        <svg class="theme-icon theme-icon--sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
       </button>
 
       <button class="avatar-wrap" id="openAvatar" type="button" aria-label="Xem ảnh đại diện">
-        <img class="avatar" src="img/avatar3.jpg" alt="Ảnh đại diện" loading="lazy">
+        <img class="avatar" src="img/avatar-modal.jpg" width="120" height="120" alt="Ảnh đại diện Nguyễn Văn Chiến" decoding="async" fetchpriority="high">
       </button>
-<h1 class="name">Nguyễn Văn Chiến</h1>
-<p class="subtitle"><i>Wait You ^^</i></p>
 
+      <h1 class="name">Nguyễn Văn Chiến</h1>
+      <p class="subtitle">Wait You ^^</p>
 
+      <nav class="grid" aria-label="Liên kết nhanh">
+        <a class="icon-btn icon-btn--facebook" href="https://www.facebook.com/nchienms/" target="_blank" rel="noopener" aria-label="Facebook">
+          <span class="icon-circle" aria-hidden="true"><img class="brand-icon" src="svg/facebook.svg" width="32" height="32" alt="" decoding="async"></span>
+        </a>
 
-<!-- Grid 3 cột + center -->
-<nav class="grid" aria-label="Liên kết nhanh">
-  <a class="icon-btn" href="https://www.facebook.com/nchienms/" target="_blank" rel="noopener" aria-label="Facebook">
-    <span class="icon-circle"><i class="fab fa-facebook-f ic ic-fb" aria-hidden="true"></i></span>
-  </a>
+        <a class="icon-btn icon-btn--zalo" href="https://zalo.me/0337260123" target="_blank" rel="noopener" aria-label="Zalo">
+          <span class="icon-circle" aria-hidden="true"><img class="brand-icon" src="svg/zalo.svg" width="32" height="32" alt="" decoding="async"></span>
+        </a>
 
+        <a class="icon-btn icon-btn--tiktok" href="https://vt.tiktok.com/ZSQpF51h/" target="_blank" rel="noopener" aria-label="TikTok">
+          <span class="icon-circle" aria-hidden="true"><img class="brand-icon" src="svg/tiktok.svg" width="32" height="32" alt="" decoding="async"></span>
+        </a>
 
+        <a class="icon-btn icon-btn--instagram" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <span class="icon-circle" aria-hidden="true"><img class="brand-icon" src="svg/instagram.svg" width="32" height="32" alt="" decoding="async"></span>
+        </a>
 
-  <a class="icon-btn" href="https://zalo.me/0337260123" target="_blank" rel="noopener" aria-label="Zalo">
-    <span class="icon-circle"><img class="icon-img" src="https://ariesvn8.files.wordpress.com/2021/07/zalo.png" alt="Zalo" loading="lazy"></span>
-  </a>
+        <button class="icon-btn icon-btn--mb" type="button"
+          data-bank="MB Bank" data-owner="NGUYEN VAN CHIEN" data-copy-owner="Nguyễn Văn Chiến" data-account="8266666699" data-qr="img/mbqr.png"
+          aria-label="Mở thông tin MB Bank">
+          <span class="icon-circle" aria-hidden="true"><img class="brand-icon" src="svg/mb-bank.svg" width="32" height="32" alt="" decoding="async"></span>
+        </button>
 
-  <a class="icon-btn" href="https://vt.tiktok.com/ZSQpF51h/" target="_blank" rel="noopener" aria-label="TikTok">
-    <span class="icon-circle"><i class="fab fa-tiktok ic ic-tt" aria-hidden="true"></i></span>
-  </a>
-
-  <a class="icon-btn" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-    <span class="icon-circle"><i class="fab fa-instagram ic ic-ig" aria-hidden="true"></i></span>
-  </a>
-
-  <button class="icon-btn" type="button"
-    data-bank="MB Bank" data-owner="NGUYEN VAN CHIEN" data-account="8266666699" data-qr="img/mbqr.png"
-    aria-label="Mở thông tin MB Bank">
-    <span class="icon-circle">
-      <img class="icon-img" src="https://ariesvn8.files.wordpress.com/2021/07/162299371060bceb2ef0640.png" alt="MB Bank" loading="lazy">
-    </span>
-  </button>
-
-  <button class="icon-btn" type="button"
-    data-bank="Vietcombank" data-owner="NGUYEN VAN CHIEN" data-account="1020553977" data-qr="img/vcbqr.png"
-    aria-label="Mở thông tin Vietcombank">
-    <span class="icon-circle">
-      <img class="icon-img" src="https://ariesvn8.files.wordpress.com/2021/07/162299187260bce400261f9.png" alt="Vietcombank" loading="lazy">
-    </span>
-  </button>
-</nav>
-
+        <button class="icon-btn icon-btn--vcb" type="button"
+          data-bank="Vietcombank" data-owner="NGUYEN VAN CHIEN" data-copy-owner="Nguyễn Văn Chiến" data-account="1020553977" data-qr="img/vcbqr.png"
+          aria-label="Mở thông tin Vietcombank">
+          <span class="icon-circle" aria-hidden="true"><img class="brand-icon" src="svg/vietcombank.svg" width="32" height="32" alt="" decoding="async"></span>
+        </button>
+      </nav>
 
       <div class="actions" aria-label="Hành động">
-        <a class="action-btn" href="https://onedrive.live.com/download?cid=BAEE65BB54DC7488&resid=BAEE65BB54DC7488%21111&authkey=AI_4wklRaOVcKc8"
-           target="_blank" rel="noopener">+ Danh bạ</a>
-        <a class="action-btn" href="tel:0337260123" aria-label="Gọi điện">Gọi điện</a>
+        <a class="action-btn" href="https://github.com/NChienMS/nextool-config/releases/download/PRINTERNT/N.Chien.vcf"
+           target="_blank" rel="noopener">
+          <span aria-hidden="true">+</span> Danh bạ
+        </a>
+        <a class="action-btn" href="tel:0337260123" aria-label="Gọi điện thoại">Gọi điện</a>
       </div>
-
-
-
 
       <footer class="footer">
-        <span><i class="fas fa-heart" aria-hidden="true"></i> Càng tĩnh lặng bạn càng lắng nghe được nhiều</span>
+        <span aria-hidden="true">♡</span>
+        <span>Càng tĩnh lặng bạn càng lắng nghe được nhiều</span>
       </footer>
     </section>
-      <!-- Toast: đưa ra ngoài, fixed + z-index cao để không bị modal che -->
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Avatar modal -->
-  <div class="modal" id="avatarModal" aria-hidden="true">
-    <div class="modal__overlay"></div>
-    <div class="modal__panel" role="dialog" aria-label="Ảnh đại diện">
-      <button class="modal__close" type="button" data-close="avatar" aria-label="Đóng">
-        <i class="fas fa-times" aria-hidden="true"></i>
-      </button>
-      <img class="modal__img" src="img/avatar3.jpg" alt="Ảnh đại diện phóng to" loading="lazy">
-    </div>
-  </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Bank modal -->
-  <div class="modal" id="bankModal" aria-hidden="true">
-    <div class="modal__overlay"></div>
-    <div class="modal__panel modal__panel--bank" role="dialog" aria-label="Thông tin ngân hàng">
-      <button class="modal__close" type="button" data-close="bank" aria-label="Đóng">
-        <i class="fas fa-times" aria-hidden="true"></i>
-      </button>
-
-      <div class="bank-title" id="bankName">Ngân hàng</div>
-
-      <div class="bank-row">
-        <div class="bank-value" id="bankOwnerLabel">Tên chủ tài khoản</div>
-        <div class="bank-value" id="bankAccount">—</div>
+    <div class="modal" id="avatarModal" aria-hidden="true">
+      <button class="modal__overlay" type="button" data-close="avatar" aria-label="Đóng ảnh đại diện"></button>
+      <div class="modal__panel" role="dialog" aria-modal="true" aria-label="Ảnh đại diện">
+        <button class="modal__close" type="button" data-close="avatar" aria-label="Đóng">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+        <img class="modal__img" src="img/avatar-modal.jpg" width="960" height="960" alt="Ảnh đại diện Nguyễn Văn Chiến phóng to" loading="lazy" decoding="async">
       </div>
-
-      <div class="bank-qr-wrap">
-        <img class="bank-qr" id="bankQr" src="" alt="QR chuyển khoản" loading="lazy">
-      </div>
-
-      <button class="copy-btn" type="button" id="copyAccountBtn">
-        <i class="far fa-copy" aria-hidden="true"></i>
-        Copy STK
-      </button>
     </div>
-  </div>
+
+    <div class="modal" id="bankModal" aria-hidden="true">
+      <button class="modal__overlay" type="button" data-close="bank" aria-label="Đóng thông tin ngân hàng"></button>
+      <div class="modal__panel modal__panel--bank" role="dialog" aria-modal="true" aria-labelledby="bankName">
+        <button class="modal__close" type="button" data-close="bank" aria-label="Đóng">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+
+        <h2 class="bank-title" id="bankName">Ngân hàng</h2>
+
+        <dl class="bank-details">
+          <div class="bank-row">
+            <dt>Chủ tài khoản</dt>
+            <dd id="bankOwnerLabel">NGUYEN VAN CHIEN</dd>
+          </div>
+          <div class="bank-row">
+            <dt>Số tài khoản</dt>
+            <dd id="bankAccount">---</dd>
+          </div>
+        </dl>
+
+        <div class="bank-qr-wrap">
+          <img class="bank-qr" id="bankQr" src="" width="300" height="300" alt="QR chuyển khoản" loading="lazy" decoding="async">
+        </div>
+
+        <button class="copy-btn" type="button" id="copyAccountBtn">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" /></svg>
+          Sao chép thông tin
+        </button>
+      </div>
+    </div>
   </main>
-
-
 </body>
 </html>
